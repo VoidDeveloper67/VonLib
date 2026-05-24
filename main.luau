@@ -6197,9 +6197,183 @@ t.Name=s
 table.freeze(t)
 end
 
+-- ==========================================
+-- ENHANCED THEMES - Additional built-in themes
+-- ==========================================
+
+r.Midnight = {
+	Colors = {
+		Background = ColorSequence.new{
+			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(5, 5, 20)),
+			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(15, 15, 40)),
+			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(5, 5, 20))
+		},
+		Primary = Color3.fromRGB(80, 120, 240),
+		OnPrimary = Color3.fromRGB(40, 60, 160),
+		ScrollBar = Color3.fromRGB(40, 60, 150),
+		Stroke = Color3.fromRGB(30, 35, 60),
+		Error = Color3.fromRGB(255, 80, 80),
+		Icons = Color3.fromRGB(200, 210, 255),
+		JoinButton = Color3.fromRGB(40, 180, 100),
+		Link = Color3.fromRGB(80, 160, 255),
+		Dialog = { Background = Color3.fromRGB(12, 12, 30) },
+		Buttons = { Holding = Color3.fromRGB(25, 25, 50), Default = Color3.fromRGB(18, 18, 40) },
+		Border = { Holding = Color3.fromRGB(50, 60, 100), Default = Color3.fromRGB(30, 35, 65) },
+		Text = { Default = Color3.fromRGB(230, 235, 255), Dark = Color3.fromRGB(170, 180, 220), Darker = Color3.fromRGB(130, 140, 180) },
+		Slider = { SliderBar = Color3.fromRGB(40, 60, 150), SliderNumber = Color3.fromRGB(200, 210, 255) },
+		Dropdown = { Holder = Color3.fromRGB(20, 20, 45) }
+	},
+	Icons = r.Darker.Icons,
+	Font = r.Darker.Font,
+	BackgroundTransparency = 0.03
+}
+
+r.Ocean = {
+	Colors = {
+		Background = ColorSequence.new{
+			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 15, 25)),
+			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(0, 25, 40)),
+			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 15, 25))
+		},
+		Primary = Color3.fromRGB(0, 200, 180),
+		OnPrimary = Color3.fromRGB(0, 120, 110),
+		ScrollBar = Color3.fromRGB(0, 100, 90),
+		Stroke = Color3.fromRGB(20, 45, 55),
+		Error = Color3.fromRGB(255, 100, 100),
+		Icons = Color3.fromRGB(180, 240, 230),
+		JoinButton = Color3.fromRGB(0, 160, 120),
+		Link = Color3.fromRGB(0, 180, 200),
+		Dialog = { Background = Color3.fromRGB(5, 15, 25) },
+		Buttons = { Holding = Color3.fromRGB(10, 35, 45), Default = Color3.fromRGB(5, 20, 30) },
+		Border = { Holding = Color3.fromRGB(30, 70, 80), Default = Color3.fromRGB(20, 45, 55) },
+		Text = { Default = Color3.fromRGB(220, 250, 245), Dark = Color3.fromRGB(150, 200, 190), Darker = Color3.fromRGB(110, 160, 150) },
+		Slider = { SliderBar = Color3.fromRGB(0, 100, 90), SliderNumber = Color3.fromRGB(180, 240, 230) },
+		Dropdown = { Holder = Color3.fromRGB(5, 20, 30) }
+	},
+	Icons = r.Darker.Icons,
+	Font = r.Darker.Font,
+	BackgroundTransparency = 0.03
+}
+
+r.Forest = {
+	Colors = {
+		Background = ColorSequence.new{
+			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(5, 15, 5)),
+			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(10, 25, 10)),
+			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(5, 15, 5))
+		},
+		Primary = Color3.fromRGB(60, 200, 80),
+		OnPrimary = Color3.fromRGB(35, 120, 50),
+		ScrollBar = Color3.fromRGB(30, 100, 40),
+		Stroke = Color3.fromRGB(25, 40, 25),
+		Error = Color3.fromRGB(255, 90, 90),
+		Icons = Color3.fromRGB(200, 240, 200),
+		JoinButton = Color3.fromRGB(40, 160, 60),
+		Link = Color3.fromRGB(80, 200, 100),
+		Dialog = { Background = Color3.fromRGB(8, 20, 8) },
+		Buttons = { Holding = Color3.fromRGB(20, 40, 20), Default = Color3.fromRGB(12, 22, 12) },
+		Border = { Holding = Color3.fromRGB(40, 70, 40), Default = Color3.fromRGB(25, 45, 25) },
+		Text = { Default = Color3.fromRGB(225, 245, 225), Dark = Color3.fromRGB(160, 200, 160), Darker = Color3.fromRGB(120, 160, 120) },
+		Slider = { SliderBar = Color3.fromRGB(30, 100, 40), SliderNumber = Color3.fromRGB(200, 240, 200) },
+		Dropdown = { Holder = Color3.fromRGB(10, 22, 10) }
+	},
+	Icons = r.Darker.Icons,
+	Font = r.Darker.Font,
+	BackgroundTransparency = 0.03
+}
+
+r.Crimson = {
+	Colors = {
+		Background = ColorSequence.new{
+			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(20, 5, 5)),
+			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(35, 10, 10)),
+			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(20, 5, 5))
+		},
+		Primary = Color3.fromRGB(220, 60, 60),
+		OnPrimary = Color3.fromRGB(140, 30, 30),
+		ScrollBar = Color3.fromRGB(120, 25, 25),
+		Stroke = Color3.fromRGB(50, 20, 20),
+		Error = Color3.fromRGB(255, 70, 70),
+		Icons = Color3.fromRGB(255, 200, 200),
+		JoinButton = Color3.fromRGB(180, 50, 50),
+		Link = Color3.fromRGB(255, 100, 100),
+		Dialog = { Background = Color3.fromRGB(25, 8, 8) },
+		Buttons = { Holding = Color3.fromRGB(50, 15, 15), Default = Color3.fromRGB(35, 10, 10) },
+		Border = { Holding = Color3.fromRGB(80, 30, 30), Default = Color3.fromRGB(55, 20, 20) },
+		Text = { Default = Color3.fromRGB(255, 220, 220), Dark = Color3.fromRGB(210, 160, 160), Darker = Color3.fromRGB(170, 120, 120) },
+		Slider = { SliderBar = Color3.fromRGB(120, 25, 25), SliderNumber = Color3.fromRGB(255, 200, 200) },
+		Dropdown = { Holder = Color3.fromRGB(30, 10, 10) }
+	},
+	Icons = r.Darker.Icons,
+	Font = r.Darker.Font,
+	BackgroundTransparency = 0.03
+}
+
+r.Lavender = {
+	Colors = {
+		Background = ColorSequence.new{
+			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(15, 5, 20)),
+			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(25, 10, 35)),
+			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(15, 5, 20))
+		},
+		Primary = Color3.fromRGB(180, 100, 220),
+		OnPrimary = Color3.fromRGB(110, 60, 140),
+		ScrollBar = Color3.fromRGB(90, 50, 120),
+		Stroke = Color3.fromRGB(40, 25, 50),
+		Error = Color3.fromRGB(255, 90, 120),
+		Icons = Color3.fromRGB(235, 210, 255),
+		JoinButton = Color3.fromRGB(140, 80, 180),
+		Link = Color3.fromRGB(200, 130, 240),
+		Dialog = { Background = Color3.fromRGB(18, 8, 25) },
+		Buttons = { Holding = Color3.fromRGB(40, 20, 55), Default = Color3.fromRGB(25, 12, 35) },
+		Border = { Holding = Color3.fromRGB(70, 40, 90), Default = Color3.fromRGB(45, 28, 60) },
+		Text = { Default = Color3.fromRGB(245, 230, 255), Dark = Color3.fromRGB(200, 170, 220), Darker = Color3.fromRGB(160, 130, 185) },
+		Slider = { SliderBar = Color3.fromRGB(90, 50, 120), SliderNumber = Color3.fromRGB(235, 210, 255) },
+		Dropdown = { Holder = Color3.fromRGB(22, 10, 30) }
+	},
+	Icons = r.Darker.Icons,
+	Font = r.Darker.Font,
+	BackgroundTransparency = 0.03
+}
+
+r.Light = {
+	Colors = {
+		Background = ColorSequence.new{
+			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(230, 230, 235)),
+			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(245, 245, 250)),
+			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(230, 230, 235))
+		},
+		Primary = Color3.fromRGB(80, 120, 220),
+		OnPrimary = Color3.fromRGB(60, 90, 180),
+		ScrollBar = Color3.fromRGB(160, 165, 180),
+		Stroke = Color3.fromRGB(200, 200, 210),
+		Error = Color3.fromRGB(220, 60, 60),
+		Icons = Color3.fromRGB(60, 65, 80),
+		JoinButton = Color3.fromRGB(50, 170, 90),
+		Link = Color3.fromRGB(50, 130, 220),
+		Dialog = { Background = Color3.fromRGB(215, 215, 225) },
+		Buttons = { Holding = Color3.fromRGB(210, 210, 218), Default = Color3.fromRGB(225, 225, 232) },
+		Border = { Holding = Color3.fromRGB(180, 180, 190), Default = Color3.fromRGB(200, 200, 210) },
+		Text = { Default = Color3.fromRGB(40, 45, 60), Dark = Color3.fromRGB(80, 85, 100), Darker = Color3.fromRGB(120, 125, 140) },
+		Slider = { SliderBar = Color3.fromRGB(160, 165, 180), SliderNumber = Color3.fromRGB(60, 65, 80) },
+		Dropdown = { Holder = Color3.fromRGB(235, 235, 240) }
+	},
+	Icons = r.Darker.Icons,
+	Font = r.Darker.Font,
+	BackgroundTransparency = 0.03
+}
+
+for themeName, themeData in r do
+	themeData.Name = themeName
+	if not table.isfrozen or not table.isfrozen(themeData) then
+		pcall(function() table.freeze(themeData) end)
+	end
+end
+
+
 local s={
 Information={
-Version="v1.0.0",
+Version="v1.1.0",
 GitHubOwner="von63rd"
 },
 Default={
@@ -9865,6 +10039,227 @@ ag.SetDefaultNotifyIcon=SetNotifyDefaultIcon
 ag.GetTabByName=ag.GetTabByTitle
 ag.Notificafion=ag.Notify
 
+
+-- ==========================================
+-- TAGS SYSTEM
+-- ==========================================
+-- Colored labels on the topbar
+-- Usage: Window:AddTag({Title = "v1.1", Color = "Amber", Icon = "lucide:tag"})
+
+local TagRegistry = {}
+
+local PresetTagColors = {
+	Amber = Color3.fromRGB(255, 170, 0),
+	Rose = Color3.fromRGB(255, 50, 80),
+	Sky = Color3.fromRGB(80, 180, 255),
+	Emerald = Color3.fromRGB(50, 200, 100),
+	Violet = Color3.fromRGB(140, 80, 255),
+	Default = Color3.fromRGB(88, 101, 242),
+	Premium = Color3.fromRGB(255, 215, 0),
+	Free = Color3.fromRGB(50, 200, 100),
+}
+
+local function ResolveTagColor(colorInput)
+	if typeof(colorInput) == "Color3" then return colorInput end
+	if type(colorInput) == "string" and colorInput:sub(1, 1) == "#" then
+		local ri = tonumber(colorInput:sub(2, 3), 16) or 255
+		local gi = tonumber(colorInput:sub(4, 5), 16) or 255
+		local bi = tonumber(colorInput:sub(6, 7), 16) or 255
+		return Color3.fromRGB(ri, gi, bi)
+	end
+	return PresetTagColors[colorInput] or PresetTagColors.Default
+end
+
+function ag:AddTag(Config)
+	if type(Config) ~= "table" then Config = {Title = tostring(Config)} end
+	local title = Config.Title or Config.Name or Config.Text or "Tag"
+	local color = ResolveTagColor(Config.Color or Config.Colour or "Default")
+	local icon = Config.Icon and s:GetIconByName(Config.Icon) or nil
+
+	local elements = self:GetElements()
+	local topbar = elements.MainFrame:FindFirstChild("TopBar")
+	if not topbar then return nil end
+
+	local tagFrame = E("Frame", {
+		Name = "Tag_" .. title,
+		AutomaticSize = Enum.AutomaticSize.X,
+		Size = UDim2.new(0, 0, 0, 18),
+		BackgroundColor3 = color,
+		BackgroundTransparency = 0.15,
+		Parent = topbar
+	})
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 4)
+	corner.Parent = tagFrame
+
+	local pad = Instance.new("UIPadding")
+	pad.PaddingLeft = UDim.new(0, 6)
+	pad.PaddingRight = UDim.new(0, 6)
+	pad.Parent = tagFrame
+
+	local titleLabel = topbar:FindFirstChild("Title")
+	if titleLabel then
+		tagFrame.Position = UDim2.new(0, titleLabel.AbsolutePosition.X + titleLabel.AbsoluteSize.X + 10, 0.5, 0)
+		tagFrame.AnchorPoint = Vector2.new(0, 0.5)
+	else
+		tagFrame.Position = UDim2.new(0, 100, 0.5, 0)
+		tagFrame.AnchorPoint = Vector2.new(0, 0.5)
+	end
+
+	local iconLabel
+	if icon then
+		iconLabel = E("ImageLabel", {
+			Size = UDim2.new(0, 12, 0, 12),
+			Position = UDim2.new(0, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0, 0.5),
+			BackgroundTransparency = 1,
+			Image = icon,
+			ImageColor3 = Color3.new(1, 1, 1),
+			Parent = tagFrame
+		})
+	end
+
+	local textOffset = icon and 16 or 0
+	local textLabel = E("TextLabel", {
+		Size = UDim2.new(0, 0, 1, 0),
+		AutomaticSize = Enum.AutomaticSize.X,
+		Position = UDim2.new(0, textOffset, 0, 0),
+		BackgroundTransparency = 1,
+		Text = title,
+		TextColor3 = Color3.new(1, 1, 1),
+		TextSize = 9,
+		Font = Enum.Font.BuilderSansBold,
+		Parent = tagFrame
+	})
+
+	local tagObj = {
+		Frame = tagFrame,
+		TitleLabel = textLabel,
+		IconLabel = iconLabel,
+		OriginalColor = color,
+		SetTitle = function(self, newTitle) self.TitleLabel.Text = newTitle end,
+		SetIcon = function(self, newIcon)
+			local resolved = s:GetIconByName(newIcon)
+			if resolved and self.IconLabel then
+				self.IconLabel.Image = resolved
+			elseif resolved then
+				self.IconLabel = E("ImageLabel", {
+					Size = UDim2.new(0, 12, 0, 12),
+					Position = UDim2.new(0, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0, 0.5),
+					BackgroundTransparency = 1,
+					Image = resolved,
+					ImageColor3 = Color3.new(1, 1, 1),
+					Parent = self.Frame
+				})
+			elseif self.IconLabel then
+				self.IconLabel:Destroy()
+				self.IconLabel = nil
+			end
+		end,
+		SetColor = function(self, newColor)
+			local resolved = ResolveTagColor(newColor)
+			self.OriginalColor = resolved
+			j:Create(self.Frame, TweenInfo.new(0.3), {BackgroundColor3 = resolved}):Play()
+		end,
+		Destroy = function(self) self.Frame:Destroy() end
+	}
+
+	table.insert(TagRegistry, tagObj)
+	return tagObj
+end
+
+ag.Tag = ag.AddTag
+
+-- ==========================================
+-- CONFIG SECTION (Auto Save/Load System)
+-- ==========================================
+-- Usage: Window:AddConfigSection({Folder = "MyHub/Config", AutoSave = true, AutoLoad = true})
+
+function ag:AddConfigSection(Config)
+	Config = Config or {}
+	local folderName = Config.Folder or Config.ConfigFolder or (self.ScriptFolder .. "/Config")
+	local defaultFile = Config.DefaultFile or Config.AutoSaveFile or "Default"
+	local autoSave = Config.AutoSave or false
+	local autoLoad = Config.AutoLoad or false
+
+	if makefolder and not isfolder(folderName) then
+		pcall(makefolder, folderName)
+	end
+
+	local function doSave(fileName)
+		local data = {}
+		for flagName, flagValue in pairs(self.Flags) do
+			data[flagName] = flagValue
+		end
+		local ok, jsonStr = pcall(function() return k:JSONEncode(data) end)
+		if not ok or not jsonStr then return false end
+		return pcall(function() writefile(folderName .. "/" .. fileName .. ".json", jsonStr) end)
+	end
+
+	local function doLoad(fileName)
+		local path = folderName .. "/" .. fileName .. ".json"
+		if not isfile or not isfile(path) then return false, "File not found" end
+		local ok, data = pcall(function() return k:JSONDecode(readfile(path)) end)
+		if not ok or type(data) ~= "table" then return false, "Invalid data" end
+		for flagName, flagValue in pairs(data) do
+			pcall(function() self:SetFlag(flagName, flagValue) end)
+		end
+		return true
+	end
+
+	local ConfigAPI = {
+		Folder = folderName,
+		DefaultFile = defaultFile,
+		AutoSave = autoSave,
+		Save = function(cself, fileName)
+			return doSave(fileName or defaultFile)
+		end,
+		Load = function(cself, fileName)
+			return doLoad(fileName or defaultFile)
+		end,
+		Delete = function(cself, fileName)
+			local path = folderName .. "/" .. (fileName or defaultFile) .. ".json"
+			if delfile and isfile and isfile(path) then
+				pcall(delfile, path)
+				return true
+			end
+			return false
+		end,
+		List = function(cself)
+			local list = {}
+			if listfiles then
+				local ok, files = pcall(listfiles, folderName)
+				if ok and files then
+					for _, filePath in ipairs(files) do
+						local name = filePath:match("([^/\\]+)%.json$")
+						if name then table.insert(list, name) end
+					end
+				end
+			end
+			return list
+		end,
+		Exists = function(cself, fileName)
+			return isfile and isfile(folderName .. "/" .. (fileName or defaultFile) .. ".json")
+		end
+	}
+
+	if autoLoad then
+		task.defer(function() doLoad(defaultFile) end)
+	end
+
+	self.SaveConfig = function(_, fileName) return ConfigAPI:Save(fileName) end
+	self.LoadConfig = function(_, fileName) return ConfigAPI:Load(fileName) end
+	self.DeleteConfig = function(_, fileName) return ConfigAPI:Delete(fileName) end
+	self.ListConfigs = function() return ConfigAPI:List() end
+	self.ConfigExists = function(_, fileName) return ConfigAPI:Exists(fileName) end
+
+	return ConfigAPI
+end
+
+ag.AddConfigTab = ag.AddConfigSection
+
 R.Window=ag
 end local aa=function(
 
@@ -10416,5 +10811,301 @@ function s:GetAuthor()
   return "von63rd"
 end
 
+
+
+-- ==========================================
+-- TEXT GRADIENT UTILITY
+-- ==========================================
+-- Apply gradient colors to any TextLabel or TextButton
+-- Usage: Library:ApplyTextGradient(label, {Color3.fromRGB(255,0,0), Color3.fromRGB(0,0,255)})
+
+local function CreateGradientText(Config)
+	local TextLabel = Config.TextLabel
+	local Colors = Config.Colors or {Color3.fromRGB(255, 255, 255)}
+	local Direction = Config.Direction or "Horizontal"
+
+	if not TextLabel then return nil end
+
+	-- Remove existing gradient
+	local existing = TextLabel:FindFirstChild("TextGradient")
+	if existing then existing:Destroy() end
+
+	local gradient = Instance.new("UIGradient")
+	gradient.Name = "TextGradient"
+
+	local colorSequence = {}
+	if #Colors == 1 then
+		colorSequence = {ColorSequenceKeypoint.new(0, Colors[1]), ColorSequenceKeypoint.new(1, Colors[1])}
+	else
+		for ci, color in ipairs(Colors) do
+			table.insert(colorSequence, ColorSequenceKeypoint.new((ci-1)/(#Colors-1), color))
+		end
+	end
+	gradient.Color = ColorSequence.new(colorSequence)
+
+	if Direction == "Horizontal" then gradient.Rotation = 0
+	elseif Direction == "Vertical" then gradient.Rotation = 90
+	elseif Direction == "Diagonal" then gradient.Rotation = 45
+	elseif type(Direction) == "number" then gradient.Rotation = Direction end
+
+	gradient.Parent = TextLabel
+	return gradient
+end
+
+function s:ApplyTextGradient(TextLabel, Colors, Direction)
+	assert(typeof(TextLabel) == "Instance", "ApplyTextGradient: Instance expected")
+	assert(type(Colors) == "table", "ApplyTextGradient: table of Color3 expected")
+	return CreateGradientText({
+		TextLabel = TextLabel,
+		Colors = Colors,
+		Direction = Direction or "Horizontal"
+	})
+end
+
+function s:CreateGradientLabel(Config)
+	local Parent = Config.Parent
+	local Text = Config.Text or "Gradient Text"
+	local Colors = Config.Colors or {Color3.fromRGB(255, 0, 0), Color3.fromRGB(0, 0, 255)}
+	local Size = Config.Size or UDim2.new(1, 0, 0, 20)
+	local Direction = Config.Direction or "Horizontal"
+	local Font = Config.Font or Enum.Font.BuilderSansBold
+	local TextSize = Config.TextSize or 12
+
+	local label = E("TextLabel", {
+		Text = Text,
+		Size = Size,
+		BackgroundTransparency = 1,
+		TextXAlignment = Config.TextXAlignment or Enum.TextXAlignment.Left,
+		TextYAlignment = Config.TextYAlignment or Enum.TextYAlignment.Center,
+		Font = Font,
+		TextSize = TextSize,
+		Parent = Parent
+	})
+
+	CreateGradientText({
+		TextLabel = label,
+		Colors = Colors,
+		Direction = Direction
+	})
+	return label
+end
+
+function s:RemoveTextGradient(TextLabel)
+	if typeof(TextLabel) == "Instance" then
+		local grad = TextLabel:FindFirstChild("TextGradient")
+		if grad then grad:Destroy() end
+	end
+end
+
+-- ==========================================
+-- VIDEO BACKGROUND SUPPORT
+-- ==========================================
+-- Background video for windows (like VelarisUI)
+-- Usage: Window:SetBackgroundVideo({Video = "rbxassetid://123", Overlay = 0.4})
+
+local VideoBackgrounds = {}
+
+function s:CreateVideoBackground(Config)
+	local Parent = Config.Parent or I
+	local VideoSource = Config.Video or Config.VideoId or Config.Source or Config.BackgroundVideo
+	local OverlayTransparency = Config.Overlay or Config.OverlayTransparency or Config.BackgroundVideoOverlay or 0.4
+	local AutoPlay = Config.AutoPlay ~= false
+	local Looped = Config.Looped ~= false
+	local Volume = Config.Volume or 0
+
+	assert(type(VideoSource) == "string", "CreateVideoBackground: Video source string expected")
+
+	local container = E("Frame", {
+		Name = "VideoBackground",
+		Size = UDim2.fromScale(1, 1),
+		BackgroundTransparency = 1,
+		ZIndex = -10,
+		Parent = Parent
+	})
+
+	local videoFrame = Instance.new("VideoFrame")
+	videoFrame.Name = "BackgroundVideo"
+	videoFrame.Size = UDim2.fromScale(1, 1)
+	videoFrame.BackgroundTransparency = 1
+	videoFrame.ZIndex = -9
+
+	if VideoSource:match("^rbxassetid://") then
+		videoFrame.Video = VideoSource
+	elseif VideoSource:match("^%d+$") then
+		videoFrame.Video = "rbxassetid://" .. VideoSource
+	else
+		if getcustomasset then
+			local ok, result = pcall(function()
+				local filename = "VonLib_bgvideo_cache.webm"
+				if not isfile(filename) then
+					local data = game:HttpGet(VideoSource)
+					writefile(filename, data)
+				end
+				return getcustomasset(filename)
+			end)
+			if ok then
+				videoFrame.Video = result
+			else
+				warn("[VonLib] Failed to load video:", result)
+				container:Destroy()
+				return nil
+			end
+		else
+			warn("[VonLib] URL video requires getcustomasset")
+			container:Destroy()
+			return nil
+		end
+	end
+
+	videoFrame.Parent = container
+
+	local overlay = E("Frame", {
+		Name = "VideoOverlay",
+		Size = UDim2.fromScale(1, 1),
+		BackgroundColor3 = Color3.new(0, 0, 0),
+		BackgroundTransparency = 1 - math.clamp(OverlayTransparency, 0, 1),
+		ZIndex = -8,
+		Parent = container
+	})
+
+	videoFrame.Looped = Looped
+	videoFrame.Volume = math.clamp(Volume / 100, 0, 10)
+
+	if AutoPlay then videoFrame:Play() end
+
+	local api = {
+		VideoFrame = videoFrame,
+		Container = container,
+		Overlay = overlay,
+		Play = function(self) self.VideoFrame:Play() end,
+		Pause = function(self) self.VideoFrame:Pause() end,
+		Stop = function(self) self.VideoFrame:Stop() end,
+		SetVolume = function(self, vol)
+			self.VideoFrame.Volume = math.clamp(vol / 100, 0, 10)
+		end,
+		SetOverlay = function(self, transparency)
+			self.Overlay.BackgroundTransparency = 1 - math.clamp(transparency, 0, 1)
+		end,
+		SetPlaybackSpeed = function(self, speed)
+			self.VideoFrame.PlaybackSpeed = speed or 1
+		end,
+		Destroy = function(self)
+			self.Container:Destroy()
+			for k in pairs(self) do self[k] = nil end
+		end
+	}
+
+	table.insert(VideoBackgrounds, api)
+	return api
+end
+
+function s:PauseAllVideoBackgrounds()
+	for _, vb in ipairs(VideoBackgrounds) do
+		pcall(function() vb.VideoFrame:Pause() end)
+	end
+end
+
+function s:PlayAllVideoBackgrounds()
+	for _, vb in ipairs(VideoBackgrounds) do
+		pcall(function() vb.VideoFrame:Play() end)
+	end
+end
+
+-- ==========================================
+-- BADGE SYSTEM
+-- ==========================================
+-- Universal status badges for all UI elements
+-- Types: "Bug", "New", "Warning", "Fixed", "Beta", "Hot", "Soon", "VIP", "Pro"
+
+local BadgeColors = {
+	Bug = {Bg = Color3.fromRGB(220, 50, 50), Text = "Bug"},
+	New = {Bg = Color3.fromRGB(50, 200, 100), Text = "New"},
+	Warning = {Bg = Color3.fromRGB(255, 170, 0), Text = "Warning"},
+	Fixed = {Bg = Color3.fromRGB(80, 180, 255), Text = "Fixed"},
+	Beta = {Bg = Color3.fromRGB(140, 80, 255), Text = "Beta"},
+	Hot = {Bg = Color3.fromRGB(255, 80, 50), Text = "Hot"},
+	Soon = {Bg = Color3.fromRGB(150, 150, 150), Text = "Soon"},
+	VIP = {Bg = Color3.fromRGB(255, 215, 0), Text = "VIP"},
+	Pro = {Bg = Color3.fromRGB(255, 100, 200), Text = "Pro"},
+}
+
+local AllBadges = {}
+
+local function CreateBadgeElement(Parent, BadgeType)
+	local cfg = BadgeColors[BadgeType] or {Bg = Color3.fromRGB(88, 101, 242), Text = tostring(BadgeType)}
+
+	local badge = E("Frame", {
+		Name = "Badge_" .. BadgeType,
+		AutomaticSize = Enum.AutomaticSize.X,
+		Size = UDim2.new(0, 0, 0, 14),
+		BackgroundColor3 = cfg.Bg,
+		BackgroundTransparency = 0.1,
+		Parent = Parent
+	})
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 3)
+	corner.Parent = badge
+
+	local pad = Instance.new("UIPadding")
+	pad.PaddingLeft = UDim.new(0, 4)
+	pad.PaddingRight = UDim.new(0, 4)
+	pad.Parent = badge
+
+	local label = E("TextLabel", {
+		Size = UDim2.new(0, 0, 1, 0),
+		AutomaticSize = Enum.AutomaticSize.X,
+		BackgroundTransparency = 1,
+		Text = cfg.Text,
+		TextColor3 = Color3.new(1, 1, 1),
+		TextSize = 7,
+		Font = Enum.Font.BuilderSansBold,
+		Parent = badge
+	})
+
+	return badge, label
+end
+
+function s:CreateBadge(Config)
+	assert(type(Config) == "table", "CreateBadge: table expected")
+	local badgeType = Config.Type or Config.Badge or Config.Name or "New"
+	local parent = Config.Parent
+	local position = Config.Position or UDim2.new(1, -5, 0, -5)
+	local anchor = Config.AnchorPoint or Vector2.new(1, 0)
+
+	local badgeFrame, badgeLabel = CreateBadgeElement(parent, badgeType)
+	badgeFrame.Position = position
+	badgeFrame.AnchorPoint = anchor
+	badgeFrame.ZIndex = 50
+
+	local badgeObj = {
+		Frame = badgeFrame,
+		Label = badgeLabel,
+		Type = badgeType,
+		SetType = function(self, newType)
+			local c = BadgeColors[newType] or {Bg = Color3.fromRGB(88, 101, 242), Text = tostring(newType)}
+			self.Type = newType
+			self.Label.Text = c.Text
+			j:Create(self.Frame, TweenInfo.new(0.25), {BackgroundColor3 = c.Bg}):Play()
+		end,
+		SetText = function(self, text) self.Label.Text = text end,
+		SetColor = function(self, color)
+			j:Create(self.Frame, TweenInfo.new(0.25), {BackgroundColor3 = color}):Play()
+		end,
+		Destroy = function(self) self.Frame:Destroy() end,
+		SetVisible = function(self, visible) self.Frame.Visible = visible end
+	}
+
+	table.insert(AllBadges, badgeObj)
+	return badgeObj
+end
+
+function s:RegisterBadgeType(Name, Color, Text)
+	BadgeColors[Name] = {Bg = Color, Text = Text or Name}
+end
+
+function s:GetBadgeColors()
+	return BadgeColors
+end
 
 return s
