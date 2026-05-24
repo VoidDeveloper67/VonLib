@@ -76,7 +76,7 @@ local Minimizer = Window:NewMinimizer({
 })
 
 local MobileButton = Minimizer:CreateMobileMinimizer({
-    Image = "rbxassetid://15298567397",
+    Image = "rbxassetid://101833678008843",
     Size = UDim2.new(0,35,0,35),
     Corner = { CornerRadius = UDim.new(0,6) },
 })
@@ -123,7 +123,7 @@ Window:Dialog({
 Window:Notify({
   Title = "Notification",
   Content = "this is a Notification",
-  Image = "rbxassetid://10734953451",
+  Image = "rbxassetid://101833678008843",
   Duration = 5
 })
 ```
@@ -373,7 +373,7 @@ local Minimizer = Window:NewMinimizer({
 })
 
 local MobileButton = Minimizer:CreateMobileMinimizer({
-    Image = "rbxassetid://15298567397",
+    Image = "rbxassetid://101833678008843",
     Size = UDim2.new(0,35,0,35),
     Corner = { CornerRadius = UDim.new(0,6) },
 })
@@ -469,7 +469,7 @@ ConfigTab:AddDropdown({
 Window:Notify({
   Title = "VonLib Loaded",
   Content = 'VonLib v1.0.0 by von63rd | Press LeftControl to Minimize',
-  Image = "rbxassetid://112146984347920",
+  Image = "rbxassetid://101833678008843",
   Duration = 5
 })
 Window:SelectTab(1)
