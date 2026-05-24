@@ -441,7 +441,8 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidD
 local Window = Library:MakeWindow({
   Title = "VonLib Hub : Game",
   SubTitle = "by von63rd",
-  ScriptFolder = "vonlib"
+  ScriptFolder = "vonlib",
+  BackgroundVideo = "https://files.catbox.moe/5f9loy.webm"
 })
 
 -- Tags on topbar
@@ -449,7 +450,7 @@ Window:Tag({ Title = "v1.1.0", Color = "Amber" })
 Window:Tag({ Title = "Beta", Color = "Purple" })
 
 -- Background video (optional)
--- Window:SetBackgroundVideo("https://files.catbox.moe/yourfile.webm", 0.45)
+-- BackgroundVideo is set via MakeWindow config above (5f9loy.webm)
 
 -- Minimizer
 local Minimizer = Window:NewMinimizer({ KeyCode = Enum.KeyCode.LeftControl })
