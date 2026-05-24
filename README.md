@@ -13,7 +13,7 @@
 ## 🚀 Getting Started
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main"))()
 ```
 
 ### Creating a Window
@@ -436,7 +436,7 @@ print("Author:", Library:GetAuthor())
 ## 🏁 Full Example
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main"))()
 
 local Window = Library:MakeWindow({
   Title = "VonLib Hub : Game",
