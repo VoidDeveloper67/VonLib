@@ -1,20 +1,9 @@
-local cloneref = cloneref or function(v)
-    return v
-end
-
-local delfolder = delfolder or deletefolder or function() end
-local delfile = delfile or deletefile or function() end
-local makefolder = makefolder or function() end
-local writefile = writefile or function() end
-local readfile = readfile or function()
-    return ""
-end
-local a = cloneref
-local b = delfolder
-local c = delfile
-local d = makefolder
-local e = writefile
-local f = readfile
+local a=cloneref or(function(...)return...end)
+local b=delfolder or deletefolder
+local c=delfile or deletefile
+local d=makefolder
+local e=writefile
+local f=readfile
 local g=setmetatable({},{
 __index=function(g,h)
 rawset(g,h,a(game:GetService(h)))
@@ -91,9 +80,7 @@ ExtraBold=Enum.Font.BuilderSansExtraBold,
 SliderValue=Enum.Font.FredokaOne
 },
 BackgroundTransparency=0.03
-}
-}
-
+},
 Midnight={
 Colors={
 Background=ColorSequence.new{
@@ -293,7 +280,8 @@ ExtraBold=Enum.Font.BuilderSansExtraBold,
 SliderValue=Enum.Font.FredokaOne
 },
 BackgroundTransparency=0.03
-},
+}
+}
 for s,t in r do
 t.Name=s
 table.freeze(t)
@@ -3992,6 +3980,9 @@ Title=ao,
 UIScale=ad,
 Flags=ag
 }
+if ab.BackgroundVideo then
+as:SetBackgroundVideo(ab.BackgroundVideo,ab.BackgroundVideoOverlay or 0.4)
+end
 u(aq.Activated,function()
 as:MinimizeButton()
 end)
