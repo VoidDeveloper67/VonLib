@@ -15,7 +15,7 @@
 To load **VonLib**, simply run:
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/von63rd/VonLib/refs/heads/main/main.luau"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau)"))()
 ```
 
 ### Creating a Window
@@ -445,11 +445,11 @@ MainTab:AddTextBox({
 
 MainTab:AddSection("Discord")
 MainTab:AddDiscordInvite({
-  Title = "VonLib Hub : Community",
-  Description = "Community for VonLib Hub Users.",
-  Banner = "rbxassetid://17382040552",
-  Logo = "rbxassetid://17382040552",
-  Invite = "https://discord.gg/your-invite"
+  Title = "VoidHub",
+  Description = "Best Server In the World.",
+  Banner = "rbxassetid://101833678008843",
+  Logo = "rbxassetid://101833678008843",
+  Invite = "https://discord.gg/Wsarxj9Gzz"
 })
 
 ConfigTab:AddSection("UI Scale")
