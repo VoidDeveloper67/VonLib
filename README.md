@@ -360,7 +360,7 @@ Tab:AddToggle({
 ### Full Example
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/von63rd/VonLib/refs/heads/main/main.luau"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau"))()
 
 local Window = Library:MakeWindow({
   Title = "VonLib Hub : Game",
