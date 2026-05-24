@@ -474,3 +474,164 @@ Window:Notify({
 })
 Window:SelectTab(1)
 ```
+
+
+---
+
+## v1.1.0 - New Features
+
+### Text Gradient
+
+Apply gradient colors to any text label:
+
+```lua
+-- Apply gradient to existing label
+Library:ApplyTextGradient(LabelInstance, {
+  Color3.fromRGB(255, 0, 0),
+  Color3.fromRGB(0, 0, 255)
+}, "Horizontal")
+
+-- Create a new gradient label
+local GradLabel = Library:CreateGradientLabel({
+  Parent = SomeFrame,
+  Text = "Rainbow Text",
+  Colors = {
+    Color3.fromRGB(255, 0, 0),
+    Color3.fromRGB(255, 170, 0),
+    Color3.fromRGB(0, 255, 0),
+    Color3.fromRGB(0, 170, 255),
+    Color3.fromRGB(140, 80, 255)
+  },
+  Direction = "Horizontal", -- "Horizontal", "Vertical", "Diagonal", or custom angle
+  TextSize = 14,
+  Font = Enum.Font.BuilderSansBold
+})
+
+-- Remove gradient
+Library:RemoveTextGradient(LabelInstance)
+```
+
+### Video Background
+
+Add a video background to your window:
+
+```lua
+-- Using rbxassetid
+local VideoBG = Library:CreateVideoBackground({
+  Parent = WindowFrame,
+  Video = "rbxassetid://123456789",
+  Overlay = 0.4,  -- Dark overlay transparency (0-1)
+  AutoPlay = true,
+  Looped = true,
+  Volume = 0
+})
+
+-- Using URL (requires getcustomasset)
+local VideoBG = Library:CreateVideoBackground({
+  Video = "https://files.catbox.moe/xxxxxx.webm",
+  Overlay = 0.4
+})
+
+-- Control video
+VideoBG:Play()
+VideoBG:Pause()
+VideoBG:Stop()
+VideoBG:SetVolume(50)       -- 0-100
+VideoBG:SetOverlay(0.6)     -- 0-1
+VideoBG:SetPlaybackSpeed(1.5)
+VideoBG:Destroy()
+
+-- Global controls
+Library:PauseAllVideoBackgrounds()
+Library:PlayAllVideoBackgrounds()
+```
+
+### Tags
+
+Add colored tags to the window topbar:
+
+```lua
+-- Simple tag
+local Tag = Window:AddTag({
+  Title = "v1.1.0",
+  Color = "Amber"
+})
+
+-- Tag with icon
+local Tag = Window:AddTag({
+  Title = "Beta",
+  Icon = "lucide:flame",
+  Color = "#FF5500"  -- Supports hex colors too
+})
+
+-- Tag methods
+Tag:SetTitle("v1.2.0")
+Tag:SetIcon("lucide:star")
+Tag:SetColor("Rose")           -- Theme name
+Tag:SetColor(Color3.fromRGB(48, 255, 106))  -- Color3
+Tag:Destroy()
+```
+
+**Preset Tag Colors:** `Amber`, `Rose`, `Sky`, `Emerald`, `Violet`, `Default`, `Premium`, `Free`
+
+### Enhanced Themes
+
+6 new themes added:
+
+```lua
+-- Available themes (now 7 total):
+-- "Darker" (default), "Midnight", "Ocean", "Forest", "Crimson", "Lavender", "Light"
+
+Library:SetTheme("Midnight")   -- Deep blue aesthetic
+Library:SetTheme("Ocean")      -- Teal/cyan aesthetic
+Library:SetTheme("Forest")     -- Green aesthetic
+Library:SetTheme("Crimson")    -- Red aesthetic
+Library:SetTheme("Lavender")   -- Purple/pink aesthetic
+Library:SetTheme("Light")      -- Clean white aesthetic
+```
+
+### Badge System
+
+Create status badges for any element:
+
+```lua
+-- Create a badge
+local Badge = Library:CreateBadge({
+  Type = "New",           -- Badge type
+  Parent = SomeFrame,
+  Position = UDim2.new(1, -5, 0, -5),
+  AnchorPoint = Vector2.new(1, 0)
+})
+
+-- Built-in badge types: "Bug", "New", "Warning", "Fixed", "Beta", "Hot", "Soon", "VIP", "Pro"
+
+-- Badge methods
+Badge:SetType("Fixed")
+Badge:SetText("Updated")
+Badge:SetColor(Color3.fromRGB(255, 255, 255))
+Badge:SetVisible(false)
+Badge:Destroy()
+
+-- Register custom badge type
+Library:RegisterBadgeType("Custom", Color3.fromRGB(255, 100, 200), "Custom")
+```
+
+### Config Section (Auto Save/Load)
+
+```lua
+-- Setup config section
+local Config = Window:AddConfigSection({
+  Folder = "MyHub/Config",
+  DefaultFile = "Default",
+  AutoSave = true,   -- Auto-save when flags change
+  AutoLoad = true    -- Auto-load on startup
+})
+
+-- Manual operations
+Window:SaveConfig("slot1")       -- Save to slot1.json
+Window:LoadConfig("slot1")       -- Load from slot1.json
+Window:DeleteConfig("slot1")     -- Delete slot1.json
+local list = Window:ListConfigs() -- {"Default", "slot1", ...}
+local exists = Window:ConfigExists("slot1")
+```
+
