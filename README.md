@@ -15,7 +15,7 @@
 To load **VonLib**, simply run:
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau)"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau"))()
 ```
 
 ### Creating a Window
