@@ -3080,18 +3080,13 @@ end
 local function _buildJson(data)
 local parts={}
 for k,v in data do
-table.insert(parts,'"'..k..'"'..":
-"..v)
+table.insert(parts,'"'..k..'"'..": "..v)
 end
-return"{
-"..table.concat(parts,",
-").."
-}"
+return"{"..table.concat(parts,", ").."}"
 end
 local function _parseJson(str)
 local result={}
-for k,v in str:gmatch('"([^"]+)"%s*:%s*([^,
-}]+)') do
+for k,v in str:gmatch('"([^"]+)"%s*:%s*([^,\n}]+)') do
 v=v:match("^%s*(.-)%s*$")
 if v=="true" then result[k]=true
 elseif v=="false" then result[k]=false
