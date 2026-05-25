@@ -1,213 +1,226 @@
 # ✨ VonLib
 
-## 📌 About
+**VonLib** is a rebuilt and optimized Roblox UI library — clean, minimal, and packed with a powerful elements API, live stats overlay, DPI-adaptive scaling, and a six-theme colour system.
 
-- **VonLib** is a rebuilt and optimized Roblox UI library.
-- Clean, minimal aesthetic with powerful options API.
 - 🔹 Made by **von63rd**
-- 🔹 Designed for use in **VonLib Hub** scripts
-- 🔹 Open-Source, Lightweight, and Optimized
+- 🔹 Designed for **VonLib Hub** scripts
+- 🔹 Open-source · Lightweight · DPI-aware
 
------
+---
 
-## 🚀 Getting Started
-
-```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau"))()
-```
-
-### Creating a Window
+## 🚀 Quick Start
 
 ```lua
+local Library = loadstring(game:HttpGet(
+  "https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau"
+))()
+
 local Window = Library:MakeWindow({
-  Title = "Nice Hub : Cool Game",
-  SubTitle = "by von63rd",
+  Title       = "My Hub : Game Name",
+  SubTitle    = "by von63rd",
   ScriptFolder = "vonlib"
 })
 ```
 
------
+---
 
 ## 🪟 Window API
 
-|Method                             |Description                                 |
-|-----------------------------------|--------------------------------------------|
-|`NewMinimizer(config)`             |Create a keyboard minimizer                 |
-|`MakeTab(config)`                  |Create a new tab                            |
-|`Notify(config)`                   |Show a notification                         |
-|`NewNotifyGroup(config)`           |Create a notification group                 |
-|`Dialog(config)`                   |Show a dialog modal                         |
-|`SelectTab(tab/number)`            |Switch to a tab                             |
-|`SetUIScale(value)`                |Set UI scale (0.6–1.6)                      |
-|`Tag(config)`                      |Add a colored tag to the topbar ⭐ NEW       |
-|`SaveConfig(name)`                 |Save flagged elements to a config file ⭐ NEW|
-|`LoadConfig(name)`                 |Load a config file and apply values ⭐ NEW   |
-|`ListConfigs()`                    |List all saved config files ⭐ NEW           |
-|`DeleteConfig(name)`               |Delete a config file ⭐ NEW                  |
-|`ResetConfig(name?)`               |Reset elements to default ⭐ NEW             |
-|`SetBackgroundVideo(url, overlay?)`|Set a video background ⭐ NEW                |
-|`PauseBackgroundVideo()`           |Pause the background video ⭐ NEW            |
-|`PlayBackgroundVideo()`            |Resume the background video ⭐ NEW           |
-|`SetBackgroundVideoOverlay(t)`     |Adjust overlay transparency ⭐ NEW           |
-|`GetVersion()`                     |Returns version string                      |
-|`GetAuthor()`                      |Returns author name                         |
-|`DeleteFlags()`                    |Delete saved flags                          |
-|`GetFlag(flag)`                    |Get a saved flag value                      |
-|`SetFlag(flag, value)`             |Save a flag value                           |
-|`SetTitle(title)`                  |Update window title                         |
-|`SetSubTitle(subtitle)`            |Update window subtitle                      |
-|`GetTitle()`                       |Get current title                           |
-|`GetSubTitle()`                    |Get current subtitle                        |
-|`MinimizeButton()`                 |Toggle minimize                             |
-|`Destroy()`                        |Destroy the UI                              |
+| Method | Description |
+|---|---|
+| `MakeTab(config)` | Create a new tab |
+| `SelectTab(tab/number)` | Switch to a tab |
+| `NewMinimizer(config)` | Keyboard + mobile minimizer |
+| `Notify(config)` | Show a notification toast |
+| `NewNotifyGroup(config)` | Create a notification group |
+| `Dialog(config)` | Show a modal dialog |
+| `Tag(config)` | Add a coloured badge to the topbar ⭐ |
+| `SaveConfig(name)` | Save flagged element values ⭐ |
+| `LoadConfig(name)` | Load and apply a saved config ⭐ |
+| `ListConfigs()` | List all saved config files ⭐ |
+| `DeleteConfig(name)` | Delete a config file ⭐ |
+| `ResetConfig(name?)` | Reset elements to defaults ⭐ |
+| `SetBackgroundVideo(url, overlay?)` | Set a video background ⭐ |
+| `PauseBackgroundVideo()` | Pause the background video ⭐ |
+| `PlayBackgroundVideo()` | Resume the background video ⭐ |
+| `SetBackgroundVideoOverlay(t)` | Adjust overlay transparency ⭐ |
+| `SetTitle(title)` | Update window title |
+| `SetSubTitle(subtitle)` | Update window subtitle |
+| `GetTitle()` | Get current title |
+| `GetSubTitle()` | Get current subtitle |
+| `MinimizeButton()` | Toggle minimize state |
+| `Destroy()` | Destroy the entire UI |
 
------
+---
 
-## 🏷️ Tags (NEW)
+## 📊 Stats HUD ⭐ NEW
 
-Add colored label badges to the window topbar.
+A draggable floating overlay that displays live game statistics — ping, FPS, playtime, current time, memory usage, and more. It sits independently of the main window so it stays visible even when the menu is minimized.
+
+```lua
+-- Default stats: Ping, FPS, Playtime, Time
+local HUD = Library:MakeStatsHUD()
+
+-- Custom selection
+local HUD = Library:MakeStatsHUD({
+  Stats    = { "Ping", "FPS", "Playtime", "Time", "Memory", "Players" },
+  Position = UDim2.new(0, 8, 0.5, 0),  -- starting position (optional)
+  Visible  = true,                       -- shown by default
+})
+
+-- Show / hide
+HUD:SetVisible(false)
+HUD:SetVisible(true)
+print(HUD:IsVisible())
+
+-- Add a fully custom stat with any live value
+HUD:AddStat("Speed", function()
+  return tostring(math.floor(game.Players.LocalPlayer.Character
+    and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed or 0))
+    .. " stud/s"
+end)
+
+-- Remove a stat row
+HUD:RemoveStat("Memory")
+
+-- Reposition programmatically
+HUD:SetPosition(UDim2.new(1, -120, 0, 8))
+
+-- Clean up
+HUD:Destroy()
+```
+
+**Built-in stat keys:**
+
+| Key | What it shows |
+|---|---|
+| `Ping` | Server round-trip in ms |
+| `FPS` | Client frame rate |
+| `Playtime` | Time since the HUD was created |
+| `Time` | Current UTC time (`HH:MM:SS`) |
+| `Memory` | Lua memory in KB |
+| `Players` | Current player count |
+| `Game` | Place name (first 18 characters) |
+
+The HUD is draggable by its top handle bar and stays anchored wherever you drop it across sessions within a game run.
+
+---
+
+## 📐 DPI Auto-Scale ⭐ NEW
+
+VonLib automatically detects the player's viewport size and applies an appropriate UI scale at startup, then recomputes it whenever the window is resized or the device is rotated. No manual configuration is needed.
+
+| Device / Resolution | Behaviour |
+|---|---|
+| Small phone (< 600 px tall) | Scale reduced to ~72 % |
+| Tablet / large phone (600–780 px) | Scale reduced to ~88 % |
+| Standard desktop / 1080p (780–1000 px) | Scale at 100 % (default) |
+| High-DPI / 4K / large display (> 1000 px) | Scale proportionally up to 140 % |
+
+You can still override the scale manually via `Library:SetUIScale(value)` (range `0.6`–`1.6`).
+
+```lua
+Library:SetUIScale(1.2)
+print(Library:GetMinScale())  -- 0.6
+print(Library:GetMaxScale())  -- 1.6
+```
+
+---
+
+## 🎨 Themes
+
+Six fully distinct colour themes, each built around a unique neon accent hue. Switch at any time — all UI elements update instantly.
+
+| Theme | Accent | Vibe |
+|---|---|---|
+| `Darker` | Electric blue | Void dark, default |
+| `Midnight` | Neon violet | Deep space purple |
+| `Ocean` | Neon cyan | Cyber teal on navy |
+| `Rose` | Neon red | Blood moon |
+| `Emerald` | Matrix green | Terminal black-green |
+| `Sunset` | Hot pink / magenta | Synthwave neon |
+
+```lua
+Library:SetTheme("Midnight")
+Library:SetTheme("Rose")
+Library:SetTheme("Emerald")
+Library:SetTheme("Sunset")
+
+-- In a dropdown so users can pick live:
+ConfigTab:AddDropdown({
+  Name     = "Theme",
+  Options  = Library:GetThemes(),
+  Default  = Library:GetTheme().Name,
+  Callback = function(v) Library:SetTheme(v) end
+})
+```
+
+---
+
+## 🏷️ Tags
+
+Add coloured badge pills to the window topbar.
 
 ```lua
 local MyTag = Window:Tag({
-  Title = "v1.1.0",
-  Color = "Amber",   -- or Color3 / hex not supported yet
-  Icon  = "rbxassetid://...",  -- optional
+  Title = "v1.2.0",
+  Color = "Amber",              -- named colour or Color3
+  Icon  = "rbxassetid://...",   -- optional icon
 })
 
--- Update dynamically
-MyTag:SetTitle("v1.2.0")
+MyTag:SetTitle("v1.3.0")
 MyTag:SetColor("Green")
 MyTag:SetIcon("")
 MyTag:Destroy()
 ```
 
-**Available tag colors:** `Amber`, `Red`, `Green`, `Blue`, `Purple`, `Pink`, `Cyan`, `Orange`, `Gray`, `White`, `Default`
+**Named colours:** `Amber` · `Red` · `Green` · `Blue` · `Purple` · `Pink` · `Cyan` · `Orange` · `Gray` · `White` · `Default`
 
------
+---
 
-## 🎨 Themes
-
-**All available themes:**
-
-|Theme     |Description            |
-|----------|-----------------------|
-|`Darker`  |Classic dark (default) |
-|`Midnight`|Deep violet-blue ⭐ NEW |
-|`Ocean`   |Teal / deep sea ⭐ NEW  |
-|`Rose`    |Dark rose-red ⭐ NEW    |
-|`Emerald` |Deep forest green ⭐ NEW|
-|`Sunset`  |Dark warm orange ⭐ NEW |
-
-```lua
-Library:SetTheme("Midnight")
-Library:SetTheme("Ocean")
-Library:SetTheme("Rose")
-Library:SetTheme("Emerald")
-Library:SetTheme("Sunset")
-```
-
------
-
-## 🎬 Background Video (NEW)
-
-Add a video to the window background. Supports `rbxassetid://` or a direct `.webm` URL.
+## 🎬 Background Video
 
 ```lua
 -- Asset ID
 Window:SetBackgroundVideo("rbxassetid://123456789", 0.4)
 
--- URL (auto-downloads and caches as vonlib_bgvideo.webm)
+-- Direct URL (auto-downloads and caches as vonlib_bgvideo.webm)
 Window:SetBackgroundVideo("https://files.catbox.moe/yourfile.webm", 0.4)
 
--- Control
+-- Controls
 Window:PauseBackgroundVideo()
 Window:PlayBackgroundVideo()
-Window:SetBackgroundVideoOverlay(0.6)  -- 0 = solid black, 1 = fully transparent
+Window:SetBackgroundVideoOverlay(0.6)  -- 0 = black overlay, 1 = no overlay
 ```
 
-> 💡 To get a webm URL: convert your video at [convertio.co](https://convertio.co) then host it free at [catbox.moe](https://catbox.moe).
+> 💡 Convert your video to `.webm` at [convertio.co](https://convertio.co) and host it free at [catbox.moe](https://catbox.moe).
 
------
+---
 
-## 💾 Config System (NEW)
-
-Save and restore element values using `Flag` keys.
+## 💾 Config System
 
 ```lua
-local Window = Library:MakeWindow({
-  Title = "My Hub",
-  SubTitle = "by von63rd",
-  ScriptFolder = "vonlib"
-})
+local Tab = Window:MakeTab({ Title = "Main", Icon = "Home" })
 
--- Elements with Flag are tracked automatically
+-- Elements with a Flag key are tracked automatically
 Tab:AddToggle({ Name = "Auto Farm", Flag = "auto_farm", Default = false, Callback = function(v) end })
-Tab:AddSlider({ Name = "Speed", Flag = "speed", Min = 0, Max = 100, Default = 16, Callback = function(v) end })
+Tab:AddSlider({ Name = "Speed",     Flag = "speed",     Min = 0, Max = 100, Default = 16, Callback = function(v) end })
 
--- Save / Load
+-- Save / Load / Delete
 Window:SaveConfig("slot1")
 Window:LoadConfig("slot1")
-
--- List & delete
-local configs = Window:ListConfigs()  -- { "Default", "slot1" }
 Window:DeleteConfig("slot1")
 
--- Reset
-Window:ResetConfig()          -- reset values only
-Window:ResetConfig("slot1")   -- reset + delete file
+-- List all saved configs
+local configs = Window:ListConfigs()  -- e.g. { "Default", "slot1" }
+
+-- Reset: values only, or values + file
+Window:ResetConfig()
+Window:ResetConfig("slot1")
 ```
 
------
-
-## 🔖 Badge (NEW)
-
-Universal property for any element — shows a colored status pill next to the title.
-
-```lua
-Tab:AddToggle({ Name = "Auto Farm", Badge = "New", Default = false, Callback = function(v) end })
-Tab:AddButton({ Name = "Teleport", Badge = "Hot", Callback = function() end })
-Tab:AddSlider({ Name = "Speed", Badge = "Bug", Min = 0, Max = 100, Default = 16, Callback = function(v) end })
-```
-
-**Available badges:** `Bug` 🔴 · `New` 🟢 · `Warning` 🟡 · `Fixed` 🔵 · `Beta` 🟣 · `Hot` 🟠 · `Soon` ⚫
-
-After creating an element you can call:
-
-```lua
-local toggle = Tab:AddToggle({ Name = "ESP", Default = false, Callback = function(v) end })
-toggle:ApplyBadge("New")
-```
-
------
-
-## ✨ Text Gradient (NEW)
-
-Create labels with gradient-colored text.
-
-```lua
--- Simple (default purple-to-cyan gradient)
-Tab:AddGradientLabel("VonLib v1.1.0")
-
--- Custom colors and rotation
-Tab:AddGradientLabel({
-  Text = "Rainbow Label",
-  Colors = {
-    Color3.fromRGB(255, 80, 80),
-    Color3.fromRGB(255, 200, 50),
-    Color3.fromRGB(80, 255, 120),
-    Color3.fromRGB(80, 180, 255),
-    Color3.fromRGB(180, 80, 255)
-  },
-  Rotation = 90
-})
-
--- API
-local lbl = Tab:AddGradientLabel({ Text = "Status", Colors = {Color3.fromRGB(0,200,255), Color3.fromRGB(200,0,255)} })
-lbl:SetText("Online")
-lbl:SetGradient({Color3.fromRGB(0,255,100), Color3.fromRGB(0,180,255)}, 45)
-```
-
------
+---
 
 ## 📑 Minimizer
 
@@ -216,267 +229,277 @@ local Minimizer = Window:NewMinimizer({
   KeyCode = Enum.KeyCode.LeftControl
 })
 
-local MobileButton = Minimizer:CreateMobileMinimizer({
-  Image = "rbxassetid://101833678008843",
-  Size = UDim2.new(0, 35, 0, 35),
+-- Mobile button
+local MobileBtn = Minimizer:CreateMobileMinimizer({
+  Image  = "rbxassetid://101833678008843",
+  Size   = UDim2.new(0, 35, 0, 35),
   Corner = { CornerRadius = UDim.new(0, 6) },
 })
 ```
 
------
-
-## 📂 Tabs
-
-```lua
--- Normal
-local Tab = Window:MakeTab({ Title = "Main", Icon = "Home" })
-
--- Compact
-local Tab = Window:MakeTab({ "Main", "Home" })
-```
-
------
+---
 
 ## 🔔 Notifications
 
 ```lua
 Window:Notify({
-  Title = "Loaded!",
-  Content = "VonLib v1.1.0",
-  Image = "rbxassetid://101833678008843",
+  Title    = "Loaded!",
+  Content  = "VonLib v1.2.0",
+  Image    = "rbxassetid://101833678008843",
   Duration = 5
 })
 ```
 
------
+---
 
 ## 💬 Dialog
 
 ```lua
 Window:Dialog({
-  Title = "Confirm",
-  Content = "Are you sure?",
+  Title   = "Confirm Action",
+  Content = "Are you sure you want to proceed?",
   Options = {
-    { Name = "Yes", Callback = function(self) print("Yes!") end },
-    { Name = "No" }
+    { Name = "Yes", Callback = function(self) print("Confirmed") end },
+    { Name = "No"  }
   }
 })
 ```
 
------
+---
 
 ## ⚙️ Options API
 
-All elements support:
+Every element supports:
 
-|Method                |Description        |
-|----------------------|-------------------|
-|`SetTitle(title)`     |Update title       |
-|`SetDescription(desc)`|Update description |
-|`SetVisible(bool)`    |Show/hide element  |
-|`Destroy()`           |Remove element     |
-|`AddCallback(fn)`     |Add extra callback |
-|`ApplyBadge(label)`   |Apply a badge ⭐ NEW|
+| Method | Description |
+|---|---|
+| `SetTitle(title)` | Update displayed title |
+| `SetDescription(desc)` | Update description text |
+| `SetVisible(bool)` | Show or hide the element |
+| `Destroy()` | Remove the element entirely |
+| `AddCallback(fn)` | Attach an additional callback |
+| `ApplyBadge(label)` | Apply a status badge ⭐ |
 
------
+---
+
+## 🔖 Badges
+
+Attach a coloured status pill to any element title.
+
+```lua
+Tab:AddToggle({ Name = "Auto Farm", Badge = "New",     Default = false, Callback = function(v) end })
+Tab:AddButton({ Name = "Teleport",  Badge = "Hot",     Callback = function() end })
+Tab:AddSlider({ Name = "Speed",     Badge = "Fixed",   Min = 0, Max = 100, Default = 16, Callback = function(v) end })
+
+-- Or apply after creation:
+local toggle = Tab:AddToggle({ Name = "ESP", Default = false, Callback = function(v) end })
+toggle:ApplyBadge("Beta")
+```
+
+**Available badges:** `Bug` 🔴 · `New` 🟢 · `Warning` 🟡 · `Fixed` 🔵 · `Beta` 🟣 · `Hot` 🟠 · `Soon` ⚫
+
+---
 
 ## 🧩 Elements
 
 ### Section
-
 ```lua
 Tab:AddSection("Section Title")
 ```
 
 ### Toggle
-
 ```lua
 Tab:AddToggle({
-  Name = "Toggle",
-  Badge = "New",       -- optional badge
-  Default = false,
-  Flag = "my_toggle",
+  Name     = "Auto Farm",
+  Badge    = "New",
+  Default  = false,
+  Flag     = "auto_farm",
   Callback = function(Value) end
 })
 ```
 
 ### Button
-
 ```lua
 Tab:AddButton({
-  Name = "My Button",
-  Badge = "Hot",       -- optional badge
+  Name     = "My Button",
+  Badge    = "Hot",
   Debounce = 0.5,
   Callback = function() end
 })
 ```
 
 ### Slider
-
 ```lua
 Tab:AddSlider({
-  Name = "Speed",
-  Badge = "Fixed",     -- optional badge
-  Min = 0, Max = 100,
+  Name      = "Walk Speed",
+  Badge     = "Fixed",
+  Min       = 16,
+  Max       = 200,
   Increment = 1,
-  Default = 50,
-  Flag = "speed",
-  Callback = function(Value) end
+  Default   = 16,
+  Flag      = "walk_speed",
+  Callback  = function(Value) end
 })
 ```
 
 ### Keybind
-
 ```lua
 Tab:AddKeybind({
-  Name = "Sprint Key",
-  Default = Enum.KeyCode.LeftShift,
-  Flag = "sprint_key",
+  Name     = "Sprint Key",
+  Default  = Enum.KeyCode.LeftShift,
+  Flag     = "sprint_key",
   Callback = function(Key) print("Key:", Key.Name) end
 })
 ```
 
 ### ColorPicker
-
 ```lua
 Tab:AddColorPicker({
-  Name = "ESP Color",
-  Default = Color3.fromRGB(0, 180, 255),
-  Flag = "esp_color",
+  Name     = "ESP Color",
+  Badge    = "New",
+  Default  = Color3.fromRGB(0, 180, 255),
+  Flag     = "esp_color",
   Callback = function(Color) print(Color) end
 })
 ```
 
 ### Label
-
 ```lua
 Tab:AddLabel("Status: Active")
 Tab:AddLabel({ Text = "VIP Only", Color = Color3.fromRGB(255, 215, 0) })
 ```
 
-### Gradient Label (NEW)
-
+### Gradient Label ⭐ FIXED
 ```lua
-Tab:AddGradientLabel("VonLib")
+-- Simple (default purple → cyan)
+Tab:AddGradientLabel("VonLib v1.2.0")
 
+-- Custom colours and rotation angle
 Tab:AddGradientLabel({
-  Text = "Epic Title",
-  Colors = { Color3.fromRGB(255,80,80), Color3.fromRGB(80,180,255) },
-  Rotation = 0
+  Text     = "Rainbow",
+  Colors   = {
+    Color3.fromRGB(255, 80,  80),
+    Color3.fromRGB(255, 200, 50),
+    Color3.fromRGB(80,  255, 120),
+    Color3.fromRGB(80,  180, 255),
+    Color3.fromRGB(180, 80,  255),
+  },
+  Rotation = 90
 })
+
+-- Dynamic updates
+local lbl = Tab:AddGradientLabel({ Text = "Status", Colors = { Color3.fromRGB(0,200,255), Color3.fromRGB(200,0,255) } })
+lbl:SetText("Online")
+lbl:SetGradient({ Color3.fromRGB(0, 255, 100), Color3.fromRGB(0, 180, 255) }, 45)
 ```
 
-### Dropdown
+> Gradient labels now correctly clear any previous gradient before applying a new one, and require at minimum two colours.
 
+### Dropdown
 ```lua
 Tab:AddDropdown({
-  Name = "Mode",
-  Options = { "Option A", "Option B", "Option C" },
-  Default = "Option A",
+  Name     = "Mode",
+  Options  = { "Option A", "Option B", "Option C" },
+  Default  = "Option A",
+  Flag     = "mode",
   Callback = function(Value) end
 })
 
--- MultiSelect
+-- Multi-select
 Tab:AddDropdown({
-  Name = "Items",
+  Name        = "Items",
   MultiSelect = true,
-  Options = { "one", "two", "three" },
-  Default = { "one", "two" },
-  Callback = function(Value) end
+  Options     = { "one", "two", "three" },
+  Default     = { "one", "two" },
+  Callback    = function(Value) end
 })
 ```
 
 ### TextBox
-
 ```lua
 Tab:AddTextBox({
-  Name = "Enter Text",
-  Placeholder = "type...",
+  Name         = "Enter Text",
+  Placeholder  = "type...",
   ClearOnFocus = true,
-  Flag = "my_text",
-  Callback = function(Value) end
+  Flag         = "my_text",
+  Callback     = function(Value) end
 })
 ```
 
 ### Paragraph
-
 ```lua
 Tab:AddParagraph("Title", "Some multi-line\ndescription text.")
 ```
 
 ### Discord Invite
-
 ```lua
 Tab:AddDiscordInvite({
-  Title = "VonLib Hub | Community",
-  Description = "Join us!",
-  Banner = "rbxassetid://17382040552",
-  Logo = "rbxassetid://17382040552",
-  Invite = "https://discord.gg/your-invite",
-  Members = 470000,
-  Online = 20000,
+  Title       = "VonLib Hub | Community",
+  Description = "Join our server!",
+  Banner      = "rbxassetid://17382040552",
+  Logo        = "rbxassetid://17382040552",
+  Invite      = "https://discord.gg/your-invite",
+  Members     = 470000,
+  Online      = 20000,
 })
 ```
 
------
-
-## 📐 UI Scale
-
-- Min: `0.6` · Default: `1.0` · Max: `1.6`
-
-```lua
-Library:SetUIScale(1.2)
-print(Library:GetMinScale(), Library:GetMaxScale())
-print("Version:", Library:GetVersion())
-print("Author:", Library:GetAuthor())
-```
-
------
+---
 
 ## 🏁 Full Example
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau"))()
+local Library = loadstring(game:HttpGet(
+  "https://raw.githubusercontent.com/VoidDeveloper67/VonLib/refs/heads/main/main.luau"
+))()
 
 local Window = Library:MakeWindow({
-  Title = "VonLib Hub : Game",
-  SubTitle = "by von63rd",
-  ScriptFolder = "vonlib",
+  Title           = "VonLib Hub : Game",
+  SubTitle        = "by von63rd",
+  ScriptFolder    = "vonlib",
   BackgroundVideo = "https://files.catbox.moe/5f9loy.webm"
 })
 
--- Tags on topbar
-Window:Tag({ Title = "v1.1.0", Color = "Amber" })
-Window:Tag({ Title = "Beta", Color = "Purple" })
+-- ── Topbar tags ─────────────────────────────────────────────────────────────
+Window:Tag({ Title = "v1.2.0", Color = "Amber" })
+Window:Tag({ Title = "Beta",   Color = "Purple" })
 
--- Background video (optional)
--- BackgroundVideo is set via MakeWindow config above (5f9loy.webm)
+-- ── Stats HUD (draggable floating overlay) ──────────────────────────────────
+local HUD = Library:MakeStatsHUD({
+  Stats    = { "Ping", "FPS", "Playtime", "Time", "Memory" },
+  Position = UDim2.new(0, 8, 0.5, 0),
+})
+-- Add a custom stat: local player walk speed
+HUD:AddStat("Speed", function()
+  local hum = game.Players.LocalPlayer.Character
+    and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+  return hum and (math.floor(hum.WalkSpeed).." st/s") or "--"
+end)
 
--- Minimizer
+-- ── Minimizer ────────────────────────────────────────────────────────────────
 local Minimizer = Window:NewMinimizer({ KeyCode = Enum.KeyCode.LeftControl })
-local MobileButton = Minimizer:CreateMobileMinimizer({
-  Image = "rbxassetid://101833678008843",
-  Size = UDim2.new(0, 35, 0, 35),
+Minimizer:CreateMobileMinimizer({
+  Image  = "rbxassetid://101833678008843",
+  Size   = UDim2.new(0, 35, 0, 35),
   Corner = { CornerRadius = UDim.new(0, 6) },
 })
 
--- Tabs
+-- ── Tabs ─────────────────────────────────────────────────────────────────────
 local MainTab   = Window:MakeTab({ Title = "Main",   Icon = "Home" })
-local ConfigTab = Window:MakeTab({ Title = "Config",  Icon = "Settings" })
+local ConfigTab = Window:MakeTab({ Title = "Config", Icon = "Settings" })
 
--- ── Main Tab ───────────────────────────────────────────────────────────────
+-- ── Main Tab ─────────────────────────────────────────────────────────────────
 
 MainTab:AddSection("Info")
 MainTab:AddGradientLabel({
-  Text = "✦ VonLib v1.1.0",
-  Colors = { Color3.fromRGB(120,80,255), Color3.fromRGB(80,200,255) },
-  Rotation = 0
+  Text   = "✦ VonLib v1.2.0",
+  Colors = { Color3.fromRGB(120, 80, 255), Color3.fromRGB(80, 200, 255) },
 })
 
 MainTab:AddSection("Actions")
 MainTab:AddButton({
-  Name = "Test Button",
-  Badge = "Hot",
+  Name     = "Test Button",
+  Badge    = "Hot",
   Callback = function()
     Window:Notify({ Title = "Clicked", Content = "Button pressed!", Duration = 3 })
   end
@@ -484,130 +507,136 @@ MainTab:AddButton({
 
 MainTab:AddSection("Toggles")
 MainTab:AddToggle({
-  Name = "Auto Farm",
-  Badge = "New",
-  Default = false,
-  Flag = "auto_farm",
+  Name     = "Auto Farm",
+  Badge    = "New",
+  Default  = false,
+  Flag     = "auto_farm",
   Callback = function(v)
     Window:Notify({ Title = "Auto Farm", Content = tostring(v), Duration = 2 })
   end
 })
 MainTab:AddToggle({
-  Name = "ESP",
-  Badge = "Beta",
-  Default = false,
-  Flag = "esp_enabled",
+  Name     = "ESP",
+  Badge    = "Beta",
+  Default  = false,
+  Flag     = "esp_enabled",
   Callback = function(v) print("ESP:", v) end
 })
 
 MainTab:AddSection("Slider")
 MainTab:AddSlider({
-  Name = "Walk Speed",
-  Badge = "Fixed",
-  Min = 16, Max = 200, Increment = 1, Default = 16,
-  Flag = "walk_speed",
-  Callback = function(v) print("Speed:", v) end
+  Name      = "Walk Speed",
+  Badge     = "Fixed",
+  Min       = 16, Max = 200, Increment = 1, Default = 16,
+  Flag      = "walk_speed",
+  Callback  = function(v) print("Speed:", v) end
 })
 
 MainTab:AddSection("Keybind")
 MainTab:AddKeybind({
-  Name = "Sprint Key",
-  Default = Enum.KeyCode.LeftShift,
-  Flag = "sprint_key",
+  Name     = "Sprint Key",
+  Default  = Enum.KeyCode.LeftShift,
+  Flag     = "sprint_key",
   Callback = function(Key) print("Sprint:", Key.Name) end
 })
 
 MainTab:AddSection("Color Picker")
 MainTab:AddColorPicker({
-  Name = "ESP Color",
-  Badge = "New",
-  Default = Color3.fromRGB(0, 180, 255),
-  Flag = "esp_color",
+  Name     = "ESP Color",
+  Badge    = "New",
+  Default  = Color3.fromRGB(0, 180, 255),
+  Flag     = "esp_color",
   Callback = function(c) print("Color:", c) end
 })
 
 MainTab:AddSection("Labels")
 MainTab:AddLabel({ Text = "Status: Online", Color = Color3.fromRGB(80, 220, 80) })
 MainTab:AddGradientLabel({
-  Text = "Premium Feature",
-  Colors = { Color3.fromRGB(255,200,0), Color3.fromRGB(255,100,0) },
+  Text     = "Premium Feature",
+  Colors   = { Color3.fromRGB(255, 200, 0), Color3.fromRGB(255, 100, 0) },
   Rotation = 45
 })
 
 MainTab:AddSection("Dropdown")
 MainTab:AddDropdown({
-  Name = "Select Fruit",
-  Options = { "Light", "Dough", "Leopard" },
-  Default = "Light",
-  Flag = "fruit_select",
+  Name     = "Select Fruit",
+  Options  = { "Light", "Dough", "Leopard" },
+  Default  = "Light",
+  Flag     = "fruit_select",
   Callback = function(v) print("Fruit:", v) end
 })
 
 MainTab:AddSection("TextBox")
 MainTab:AddTextBox({
-  Name = "Custom Text",
-  Placeholder = "type here...",
+  Name         = "Custom Text",
+  Placeholder  = "type here...",
   ClearOnFocus = true,
-  Callback = function(v) print("Text:", v) end
+  Callback     = function(v) print("Text:", v) end
 })
 
 MainTab:AddSection("Discord")
 MainTab:AddDiscordInvite({
-  Title = "VoidHub",
+  Title       = "VoidHub",
   Description = "Best Server In the World.",
-  Banner = "rbxassetid://101833678008843",
-  Logo = "rbxassetid://101833678008843",
-  Invite = "https://discord.gg/Wsarxj9Gzz"
+  Banner      = "rbxassetid://101833678008843",
+  Logo        = "rbxassetid://101833678008843",
+  Invite      = "https://discord.gg/Wsarxj9Gzz"
 })
 
--- ── Config Tab ─────────────────────────────────────────────────────────────
+-- ── Config Tab ───────────────────────────────────────────────────────────────
 
 ConfigTab:AddSection("UI Scale")
 ConfigTab:AddSlider({
-  Name = "Scale",
-  Min = 0.6, Max = 1.6, Increment = 0.1, Default = 1,
-  Callback = function(v) Library:SetUIScale(v) end
+  Name      = "Scale",
+  Min       = 0.6, Max = 1.6, Increment = 0.1, Default = 1,
+  Callback  = function(v) Library:SetUIScale(v) end
 })
 
 ConfigTab:AddSection("Theme")
 ConfigTab:AddDropdown({
-  Name = "Theme",
-  Options = Library:GetThemes(),
-  Default = Library:GetTheme().Name,
+  Name     = "Theme",
+  Options  = Library:GetThemes(),
+  Default  = Library:GetTheme().Name,
   Callback = function(v) Library:SetTheme(v) end
+})
+
+ConfigTab:AddSection("Stats HUD")
+ConfigTab:AddToggle({
+  Name     = "Show Stats HUD",
+  Default  = true,
+  Callback = function(v) HUD:SetVisible(v) end
 })
 
 ConfigTab:AddSection("Config Slots")
 ConfigTab:AddButton({
-  Name = "Save Config",
-  Badge = "New",
+  Name     = "Save Config",
+  Badge    = "New",
   Callback = function()
     Window:SaveConfig("Default")
     Window:Notify({ Title = "Config", Content = "Saved!", Duration = 3 })
   end
 })
 ConfigTab:AddButton({
-  Name = "Load Config",
+  Name     = "Load Config",
   Callback = function()
     local ok = Window:LoadConfig("Default")
     Window:Notify({ Title = "Config", Content = ok and "Loaded!" or "No config found", Duration = 3 })
   end
 })
 ConfigTab:AddButton({
-  Name = "Reset Config",
-  Badge = "Warning",
+  Name     = "Reset Config",
+  Badge    = "Warning",
   Callback = function()
     Window:ResetConfig()
     Window:Notify({ Title = "Config", Content = "Reset to defaults", Duration = 3 })
   end
 })
 
--- ── Startup ────────────────────────────────────────────────────────────────
-
+-- ── Startup notification ─────────────────────────────────────────────────────
 Window:Notify({
-  Title = "VonLib Loaded",
-  Content = "v1.1.0 by von63rd | LeftControl to Minimize",
-  Image = "rbxassetid://101833678008843",
+  Title    = "VonLib Loaded",
+  Content  = "v1.2.0 by von63rd  |  LeftCtrl to minimize",
+  Image    = "rbxassetid://101833678008843",
   Duration = 5
 })
 
