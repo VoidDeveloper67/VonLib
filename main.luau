@@ -3163,6 +3163,7 @@ if elem.Default~=nil then
 if elem.SetValue then elem:SetValue(elem.Default)
 elseif elem.Set then elem:Set(elem.Default)
 end
+end
 end)
 end
 if name then self:DeleteConfig(name) end
