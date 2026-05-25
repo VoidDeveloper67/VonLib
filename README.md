@@ -1,4 +1,4 @@
-# ✨ VonLib
+# ✨ VonLib v1.3.0
 
 **VonLib** is a rebuilt and optimized Roblox UI library — clean, minimal, and packed with a powerful elements API, live stats overlay, DPI-adaptive scaling, and a six-theme colour system.
 
@@ -7,6 +7,21 @@
 - 🔹 Open-source · Lightweight · DPI-aware
 
 ---
+
+---
+
+## 🆕 What's New in v1.3.0
+
+| Feature | Description |
+|---|---|
+| **Stats HUD** | Draggable live overlay with 7 built-in stats + custom stat support |
+| **DPI Auto-Scale** | Automatic UI scaling based on viewport resolution (mobile → 4K) |
+| **Gradient Label Fix** | Properly clears old gradients before applying new ones |
+| **Text Size Fix** | Gradient labels now render at readable 13pt instead of 10pt |
+| **Version & Author API** | `Library:GetVersion()` and `Library:GetAuthor()` |
+
+---
+
 
 ## 🚀 Quick Start
 
@@ -40,10 +55,13 @@ local Window = Library:MakeWindow({
 | `ListConfigs()` | List all saved config files ⭐ |
 | `DeleteConfig(name)` | Delete a config file ⭐ |
 | `ResetConfig(name?)` | Reset elements to defaults ⭐ |
+| `MakeStatsHUD(config)` | Create a draggable live-stats overlay ⭐ NEW |
 | `SetBackgroundVideo(url, overlay?)` | Set a video background ⭐ |
 | `PauseBackgroundVideo()` | Pause the background video ⭐ |
 | `PlayBackgroundVideo()` | Resume the background video ⭐ |
 | `SetBackgroundVideoOverlay(t)` | Adjust overlay transparency ⭐ |
+| `GetVersion()` | Returns version string |
+| `GetAuthor()` | Returns author name |
 | `SetTitle(title)` | Update window title |
 | `SetSubTitle(subtitle)` | Update window subtitle |
 | `GetTitle()` | Get current title |
@@ -164,7 +182,7 @@ Add coloured badge pills to the window topbar.
 
 ```lua
 local MyTag = Window:Tag({
-  Title = "v1.2.0",
+  Title = "v1.3.0",
   Color = "Amber",              -- named colour or Color3
   Icon  = "rbxassetid://...",   -- optional icon
 })
@@ -244,7 +262,7 @@ local MobileBtn = Minimizer:CreateMobileMinimizer({
 ```lua
 Window:Notify({
   Title    = "Loaded!",
-  Content  = "VonLib v1.2.0",
+  Content  = "VonLib v1.3.0",
   Image    = "rbxassetid://101833678008843",
   Duration = 5
 })
@@ -372,7 +390,7 @@ Tab:AddLabel({ Text = "VIP Only", Color = Color3.fromRGB(255, 215, 0) })
 ### Gradient Label ⭐ FIXED
 ```lua
 -- Simple (default purple → cyan)
-Tab:AddGradientLabel("VonLib v1.2.0")
+Tab:AddGradientLabel("VonLib v1.3.0")
 
 -- Custom colours and rotation angle
 Tab:AddGradientLabel({
@@ -461,12 +479,12 @@ local Window = Library:MakeWindow({
 })
 
 -- ── Topbar tags ─────────────────────────────────────────────────────────────
-Window:Tag({ Title = "v1.2.0", Color = "Amber" })
+Window:Tag({ Title = "v1.3.0", Color = "Amber" })
 Window:Tag({ Title = "Beta",   Color = "Purple" })
 
 -- ── Stats HUD (draggable floating overlay) ──────────────────────────────────
 local HUD = Library:MakeStatsHUD({
-  Stats    = { "Ping", "FPS", "Playtime", "Time", "Memory" },
+  Stats    = { "Ping", "FPS", "Playtime", "Time", "Memory", "Players", "Game" },
   Position = UDim2.new(0, 8, 0.5, 0),
 })
 -- Add a custom stat: local player walk speed
@@ -492,7 +510,7 @@ local ConfigTab = Window:MakeTab({ Title = "Config", Icon = "Settings" })
 
 MainTab:AddSection("Info")
 MainTab:AddGradientLabel({
-  Text   = "✦ VonLib v1.2.0",
+  Text   = "✦ VonLib v1.3.0",
   Colors = { Color3.fromRGB(120, 80, 255), Color3.fromRGB(80, 200, 255) },
 })
 
@@ -635,7 +653,7 @@ ConfigTab:AddButton({
 -- ── Startup notification ─────────────────────────────────────────────────────
 Window:Notify({
   Title    = "VonLib Loaded",
-  Content  = "v1.2.0 by von63rd  |  LeftCtrl to minimize",
+  Content  = "v1.3.0 by von63rd  |  LeftCtrl to minimize  |  Stats HUD active",
   Image    = "rbxassetid://101833678008843",
   Duration = 5
 })
