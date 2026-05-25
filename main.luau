@@ -24,41 +24,24 @@ local r={
 Darker={
 Colors={
 Background=ColorSequence.new{
-ColorSequenceKeypoint.new(0.00,Color3.fromRGB(0,0,0)),
-ColorSequenceKeypoint.new(0.50,Color3.fromRGB(32.5,32.5,32.5)),
-ColorSequenceKeypoint.new(1.00,Color3.fromRGB(0,0,0))
+ColorSequenceKeypoint.new(0.00,Color3.fromRGB(8,8,14)),
+ColorSequenceKeypoint.new(0.50,Color3.fromRGB(14,14,24)),
+ColorSequenceKeypoint.new(1.00,Color3.fromRGB(8,8,14))
 },
-Primary=Color3.fromRGB(88,101,242),
-OnPrimary=Color3.fromRGB(61,67,135),
-ScrollBar=Color3.fromRGB(1,76,105),
-Stroke=Color3.fromRGB(45,45,45),
-Error=Color3.fromRGB(255,102,102),
-Icons=Color3.fromRGB(232,233,235),
-JoinButton=Color3.fromRGB(37,128,69),
-Link=Color3.fromRGB(40,150,255),
-Dialog={
-Background=Color3.fromRGB(28,28,28)
-},
-Buttons={
-Holding=Color3.fromRGB(34,34,34),
-Default=Color3.fromRGB(28,28,30)
-},
-Border={
-Holding=Color3.fromRGB(60,60,60),
-Default=Color3.fromRGB(38,38,38),
-},
-Text={
-Default=Color3.fromRGB(255,255,255),
-Dark=Color3.fromRGB(200,200,200),
-Darker=Color3.fromRGB(175,175,175),
-},
-Slider={
-SliderBar=Color3.fromRGB(1,76,105),
-SliderNumber=Color3.fromRGB(232,233,235),
-},
-Dropdown={
-Holder=Color3.fromRGB(30,30,30),
-}
+Primary=Color3.fromRGB(95,125,255),
+OnPrimary=Color3.fromRGB(55,72,175),
+ScrollBar=Color3.fromRGB(80,108,235),
+Stroke=Color3.fromRGB(32,32,55),
+Error=Color3.fromRGB(255,65,75),
+Icons=Color3.fromRGB(210,215,240),
+JoinButton=Color3.fromRGB(40,190,80),
+Link=Color3.fromRGB(130,165,255),
+Dialog={Background=Color3.fromRGB(10,10,18)},
+Buttons={Holding=Color3.fromRGB(28,28,48),Default=Color3.fromRGB(18,18,32)},
+Border={Holding=Color3.fromRGB(75,92,200),Default=Color3.fromRGB(38,38,72)},
+Text={Default=Color3.fromRGB(255,255,255),Dark=Color3.fromRGB(182,186,210),Darker=Color3.fromRGB(132,136,168)},
+Slider={SliderBar=Color3.fromRGB(80,108,235),SliderNumber=Color3.fromRGB(210,215,240)},
+Dropdown={Holder=Color3.fromRGB(12,12,22)}
 },
 Icons={
 Error="rbxassetid://10709752996",
@@ -67,10 +50,7 @@ Close="rbxassetid://10747384394",
 TextBox="rbxassetid://15637081879",
 Search="rbxassetid://10734943674",
 Keybind="rbxassetid://10734982144",
-Dropdown={
-Open="rbxassetid://10709791523",
-Close="rbxassetid://10709790948"
-}
+Dropdown={Open="rbxassetid://10709791523",Close="rbxassetid://10709790948"}
 },
 Font={
 Normal=Enum.Font.BuilderSans,
@@ -84,24 +64,24 @@ BackgroundTransparency=0.03
 Midnight={
 Colors={
 Background=ColorSequence.new{
-ColorSequenceKeypoint.new(0.00,Color3.fromRGB(5,5,20)),
-ColorSequenceKeypoint.new(0.50,Color3.fromRGB(10,10,40)),
-ColorSequenceKeypoint.new(1.00,Color3.fromRGB(5,5,20))
+ColorSequenceKeypoint.new(0.00,Color3.fromRGB(6,4,18)),
+ColorSequenceKeypoint.new(0.50,Color3.fromRGB(12,8,34)),
+ColorSequenceKeypoint.new(1.00,Color3.fromRGB(6,4,18))
 },
-Primary=Color3.fromRGB(120,80,220),
-OnPrimary=Color3.fromRGB(70,45,140),
-ScrollBar=Color3.fromRGB(80,50,180),
-Stroke=Color3.fromRGB(35,35,70),
-Error=Color3.fromRGB(255,102,102),
-Icons=Color3.fromRGB(210,200,240),
-JoinButton=Color3.fromRGB(37,128,69),
-Link=Color3.fromRGB(120,80,255),
-Dialog={Background=Color3.fromRGB(12,12,35)},
-Buttons={Holding=Color3.fromRGB(25,20,55),Default=Color3.fromRGB(15,12,40)},
-Border={Holding=Color3.fromRGB(70,55,130),Default=Color3.fromRGB(30,25,70)},
-Text={Default=Color3.fromRGB(230,220,255),Dark=Color3.fromRGB(180,165,220),Darker=Color3.fromRGB(140,125,180)},
-Slider={SliderBar=Color3.fromRGB(80,50,180),SliderNumber=Color3.fromRGB(210,200,240)},
-Dropdown={Holder=Color3.fromRGB(12,10,35)}
+Primary=Color3.fromRGB(185,85,255),
+OnPrimary=Color3.fromRGB(112,45,178),
+ScrollBar=Color3.fromRGB(155,65,238),
+Stroke=Color3.fromRGB(38,22,75),
+Error=Color3.fromRGB(255,65,75),
+Icons=Color3.fromRGB(228,205,255),
+JoinButton=Color3.fromRGB(40,190,80),
+Link=Color3.fromRGB(205,115,255),
+Dialog={Background=Color3.fromRGB(8,5,24)},
+Buttons={Holding=Color3.fromRGB(24,15,55),Default=Color3.fromRGB(15,10,40)},
+Border={Holding=Color3.fromRGB(140,60,210),Default=Color3.fromRGB(42,24,85)},
+Text={Default=Color3.fromRGB(242,228,255),Dark=Color3.fromRGB(195,172,238),Darker=Color3.fromRGB(148,128,198)},
+Slider={SliderBar=Color3.fromRGB(155,65,238),SliderNumber=Color3.fromRGB(228,205,255)},
+Dropdown={Holder=Color3.fromRGB(10,6,30)}
 },
 Icons={
 Error="rbxassetid://10709752996",
@@ -124,24 +104,24 @@ BackgroundTransparency=0.03
 Ocean={
 Colors={
 Background=ColorSequence.new{
-ColorSequenceKeypoint.new(0.00,Color3.fromRGB(0,15,30)),
-ColorSequenceKeypoint.new(0.50,Color3.fromRGB(0,35,55)),
-ColorSequenceKeypoint.new(1.00,Color3.fromRGB(0,15,30))
+ColorSequenceKeypoint.new(0.00,Color3.fromRGB(4,10,26)),
+ColorSequenceKeypoint.new(0.50,Color3.fromRGB(6,18,44)),
+ColorSequenceKeypoint.new(1.00,Color3.fromRGB(4,10,26))
 },
-Primary=Color3.fromRGB(0,180,210),
-OnPrimary=Color3.fromRGB(0,110,140),
-ScrollBar=Color3.fromRGB(0,140,170),
-Stroke=Color3.fromRGB(0,55,80),
-Error=Color3.fromRGB(255,102,102),
-Icons=Color3.fromRGB(200,240,245),
-JoinButton=Color3.fromRGB(37,128,69),
-Link=Color3.fromRGB(0,200,230),
-Dialog={Background=Color3.fromRGB(0,20,38)},
-Buttons={Holding=Color3.fromRGB(0,40,60),Default=Color3.fromRGB(0,28,45)},
-Border={Holding=Color3.fromRGB(0,90,120),Default=Color3.fromRGB(0,50,75)},
-Text={Default=Color3.fromRGB(200,245,255),Dark=Color3.fromRGB(160,215,230),Darker=Color3.fromRGB(120,185,205)},
-Slider={SliderBar=Color3.fromRGB(0,140,170),SliderNumber=Color3.fromRGB(200,240,245)},
-Dropdown={Holder=Color3.fromRGB(0,22,40)}
+Primary=Color3.fromRGB(0,222,255),
+OnPrimary=Color3.fromRGB(0,135,178),
+ScrollBar=Color3.fromRGB(0,188,225),
+Stroke=Color3.fromRGB(8,48,80),
+Error=Color3.fromRGB(255,65,75),
+Icons=Color3.fromRGB(185,248,255),
+JoinButton=Color3.fromRGB(40,190,80),
+Link=Color3.fromRGB(55,228,255),
+Dialog={Background=Color3.fromRGB(4,12,32)},
+Buttons={Holding=Color3.fromRGB(8,34,65),Default=Color3.fromRGB(5,22,46)},
+Border={Holding=Color3.fromRGB(0,175,218),Default=Color3.fromRGB(8,50,88)},
+Text={Default=Color3.fromRGB(188,248,255),Dark=Color3.fromRGB(142,215,238),Darker=Color3.fromRGB(102,180,212)},
+Slider={SliderBar=Color3.fromRGB(0,188,225),SliderNumber=Color3.fromRGB(185,248,255)},
+Dropdown={Holder=Color3.fromRGB(4,14,38)}
 },
 Icons={
 Error="rbxassetid://10709752996",
@@ -164,24 +144,24 @@ BackgroundTransparency=0.03
 Rose={
 Colors={
 Background=ColorSequence.new{
-ColorSequenceKeypoint.new(0.00,Color3.fromRGB(20,5,10)),
-ColorSequenceKeypoint.new(0.50,Color3.fromRGB(38,12,20)),
-ColorSequenceKeypoint.new(1.00,Color3.fromRGB(20,5,10))
+ColorSequenceKeypoint.new(0.00,Color3.fromRGB(18,4,6)),
+ColorSequenceKeypoint.new(0.50,Color3.fromRGB(32,8,12)),
+ColorSequenceKeypoint.new(1.00,Color3.fromRGB(18,4,6))
 },
-Primary=Color3.fromRGB(220,60,100),
-OnPrimary=Color3.fromRGB(140,35,65),
-ScrollBar=Color3.fromRGB(180,50,85),
-Stroke=Color3.fromRGB(70,20,35),
-Error=Color3.fromRGB(255,102,102),
-Icons=Color3.fromRGB(255,210,220),
-JoinButton=Color3.fromRGB(37,128,69),
-Link=Color3.fromRGB(255,80,120),
-Dialog={Background=Color3.fromRGB(22,6,12)},
-Buttons={Holding=Color3.fromRGB(45,12,22),Default=Color3.fromRGB(30,8,15)},
-Border={Holding=Color3.fromRGB(100,30,50),Default=Color3.fromRGB(55,15,28)},
-Text={Default=Color3.fromRGB(255,220,230),Dark=Color3.fromRGB(220,180,195),Darker=Color3.fromRGB(185,145,160)},
-Slider={SliderBar=Color3.fromRGB(180,50,85),SliderNumber=Color3.fromRGB(255,210,220)},
-Dropdown={Holder=Color3.fromRGB(25,7,13)}
+Primary=Color3.fromRGB(255,55,82),
+OnPrimary=Color3.fromRGB(168,28,48),
+ScrollBar=Color3.fromRGB(218,42,68),
+Stroke=Color3.fromRGB(75,12,20),
+Error=Color3.fromRGB(255,65,75),
+Icons=Color3.fromRGB(255,205,215),
+JoinButton=Color3.fromRGB(40,190,80),
+Link=Color3.fromRGB(255,95,115),
+Dialog={Background=Color3.fromRGB(14,3,6)},
+Buttons={Holding=Color3.fromRGB(45,10,16),Default=Color3.fromRGB(28,6,10)},
+Border={Holding=Color3.fromRGB(215,38,62),Default=Color3.fromRGB(80,14,24)},
+Text={Default=Color3.fromRGB(255,222,228),Dark=Color3.fromRGB(228,178,190),Darker=Color3.fromRGB(192,138,152)},
+Slider={SliderBar=Color3.fromRGB(218,42,68),SliderNumber=Color3.fromRGB(255,205,215)},
+Dropdown={Holder=Color3.fromRGB(16,4,8)}
 },
 Icons={
 Error="rbxassetid://10709752996",
@@ -204,24 +184,24 @@ BackgroundTransparency=0.03
 Emerald={
 Colors={
 Background=ColorSequence.new{
-ColorSequenceKeypoint.new(0.00,Color3.fromRGB(0,18,10)),
-ColorSequenceKeypoint.new(0.50,Color3.fromRGB(0,35,20)),
-ColorSequenceKeypoint.new(1.00,Color3.fromRGB(0,18,10))
+ColorSequenceKeypoint.new(0.00,Color3.fromRGB(4,12,6)),
+ColorSequenceKeypoint.new(0.50,Color3.fromRGB(6,20,10)),
+ColorSequenceKeypoint.new(1.00,Color3.fromRGB(4,12,6))
 },
-Primary=Color3.fromRGB(0,200,100),
-OnPrimary=Color3.fromRGB(0,120,60),
-ScrollBar=Color3.fromRGB(0,160,80),
-Stroke=Color3.fromRGB(0,60,30),
-Error=Color3.fromRGB(255,102,102),
-Icons=Color3.fromRGB(200,255,225),
-JoinButton=Color3.fromRGB(37,128,69),
-Link=Color3.fromRGB(0,220,110),
-Dialog={Background=Color3.fromRGB(0,20,10)},
-Buttons={Holding=Color3.fromRGB(0,40,22),Default=Color3.fromRGB(0,28,15)},
-Border={Holding=Color3.fromRGB(0,90,45),Default=Color3.fromRGB(0,50,25)},
-Text={Default=Color3.fromRGB(210,255,235),Dark=Color3.fromRGB(165,230,195),Darker=Color3.fromRGB(125,200,160)},
-Slider={SliderBar=Color3.fromRGB(0,160,80),SliderNumber=Color3.fromRGB(200,255,225)},
-Dropdown={Holder=Color3.fromRGB(0,22,12)}
+Primary=Color3.fromRGB(0,255,105),
+OnPrimary=Color3.fromRGB(0,158,60),
+ScrollBar=Color3.fromRGB(0,218,88),
+Stroke=Color3.fromRGB(0,55,24),
+Error=Color3.fromRGB(255,65,75),
+Icons=Color3.fromRGB(185,255,215),
+JoinButton=Color3.fromRGB(40,190,80),
+Link=Color3.fromRGB(55,255,135),
+Dialog={Background=Color3.fromRGB(4,14,7)},
+Buttons={Holding=Color3.fromRGB(8,32,15),Default=Color3.fromRGB(5,20,9)},
+Border={Holding=Color3.fromRGB(0,215,85),Default=Color3.fromRGB(0,58,26)},
+Text={Default=Color3.fromRGB(198,255,225),Dark=Color3.fromRGB(152,232,192),Darker=Color3.fromRGB(112,200,158)},
+Slider={SliderBar=Color3.fromRGB(0,218,88),SliderNumber=Color3.fromRGB(185,255,215)},
+Dropdown={Holder=Color3.fromRGB(4,16,8)}
 },
 Icons={
 Error="rbxassetid://10709752996",
@@ -244,24 +224,24 @@ BackgroundTransparency=0.03
 Sunset={
 Colors={
 Background=ColorSequence.new{
-ColorSequenceKeypoint.new(0.00,Color3.fromRGB(20,5,0)),
-ColorSequenceKeypoint.new(0.50,Color3.fromRGB(45,18,5)),
-ColorSequenceKeypoint.new(1.00,Color3.fromRGB(20,5,0))
+ColorSequenceKeypoint.new(0.00,Color3.fromRGB(16,5,20)),
+ColorSequenceKeypoint.new(0.50,Color3.fromRGB(26,8,36)),
+ColorSequenceKeypoint.new(1.00,Color3.fromRGB(16,5,20))
 },
-Primary=Color3.fromRGB(255,120,30),
-OnPrimary=Color3.fromRGB(180,75,15),
-ScrollBar=Color3.fromRGB(220,100,25),
-Stroke=Color3.fromRGB(80,30,5),
-Error=Color3.fromRGB(255,80,80),
-Icons=Color3.fromRGB(255,225,200),
-JoinButton=Color3.fromRGB(37,128,69),
-Link=Color3.fromRGB(255,150,50),
-Dialog={Background=Color3.fromRGB(22,7,0)},
-Buttons={Holding=Color3.fromRGB(50,18,5),Default=Color3.fromRGB(35,12,3)},
-Border={Holding=Color3.fromRGB(110,45,10),Default=Color3.fromRGB(65,22,5)},
-Text={Default=Color3.fromRGB(255,235,215),Dark=Color3.fromRGB(230,200,175),Darker=Color3.fromRGB(200,165,140)},
-Slider={SliderBar=Color3.fromRGB(220,100,25),SliderNumber=Color3.fromRGB(255,225,200)},
-Dropdown={Holder=Color3.fromRGB(25,8,2)}
+Primary=Color3.fromRGB(255,50,185),
+OnPrimary=Color3.fromRGB(178,25,128),
+ScrollBar=Color3.fromRGB(228,38,168),
+Stroke=Color3.fromRGB(78,14,65),
+Error=Color3.fromRGB(255,65,75),
+Icons=Color3.fromRGB(255,205,242),
+JoinButton=Color3.fromRGB(40,190,80),
+Link=Color3.fromRGB(255,105,215),
+Dialog={Background=Color3.fromRGB(12,4,16)},
+Buttons={Holding=Color3.fromRGB(40,10,52),Default=Color3.fromRGB(26,6,36)},
+Border={Holding=Color3.fromRGB(225,38,162),Default=Color3.fromRGB(82,16,70)},
+Text={Default=Color3.fromRGB(255,218,248),Dark=Color3.fromRGB(230,175,222),Darker=Color3.fromRGB(195,135,190)},
+Slider={SliderBar=Color3.fromRGB(228,38,168),SliderNumber=Color3.fromRGB(255,205,242)},
+Dropdown={Holder=Color3.fromRGB(14,5,20)}
 },
 Icons={
 Error="rbxassetid://10709752996",
@@ -281,8 +261,7 @@ SliderValue=Enum.Font.FredokaOne
 },
 BackgroundTransparency=0.03
 }
-}
-for s,t in r do
+}for s,t in r do
 t.Name=s
 table.freeze(t)
 end
@@ -616,7 +595,7 @@ O)
 local P="rbxassetid://"
 return O:sub(1,#P)==P end local P=function(
 P)
-return(t.Y/450)*P end local Q=function(
+return math.clamp((workspace.CurrentCamera.ViewportSize.Y/450)*P,0.55,2.0) end local Q=function(
 Q)
 local R=math.floor(Q/60)
 local S=math.floor(Q/60/60)
@@ -1488,11 +1467,17 @@ end
 
 -- Gradient text helper: apply UIGradient to a TextLabel
 local function applyTextGradient(lbl,colors,rotation)
+-- Remove any previously applied gradient
+local existing=lbl:FindFirstChildWhichIsA("UIGradient")
+if existing then existing:Destroy() end
+if not colors or #colors<2 then return end
 local kps={}
 local step=1/(#colors-1)
 for i,c in ipairs(colors)do
 table.insert(kps,ColorSequenceKeypoint.new((i-1)*step,c))
 end
+-- UIGradient on a TextLabel requires white TextColor3 to show colour
+lbl.TextColor3=Color3.fromRGB(255,255,255)
 local grad=E("UIGradient",lbl,{
 Color=ColorSequence.new(kps),
 Rotation=rotation or 0
@@ -2262,7 +2247,7 @@ TextXAlignment=Enum.TextXAlignment.Left,
 Size=UDim2.new(1,-10,1,0),
 Position=UDim2.fromOffset(10,0),
 BackgroundTransparency=1,
-TextSize=10,
+TextSize=13,
 Text=text,
 TextColor3=Color3.fromRGB(255,255,255),
 ThemeTag={OBJECTS=aB,Font="Font.Medium"}
@@ -3674,6 +3659,29 @@ I:ClearAllChildren()
 local ad=E("UIScale","Scale",I,{
 Scale=P(1)
 })
+-- DPI Auto-Scale: recompute UIScale whenever the viewport is resized
+-- Detects mobile (<700px tall), tablet (700-900), desktop (>900) and
+-- adjusts the base multiplier so the UI looks native on every device.
+local function _dpiScale()
+local vp=workspace.CurrentCamera.ViewportSize
+local baseScale
+if vp.Y<600 then
+-- Mobile portrait / small phone
+baseScale=0.72
+elseif vp.Y<780 then
+-- Tablet or large phone
+baseScale=0.88
+elseif vp.Y<1000 then
+-- Standard desktop / 1080p
+baseScale=1.00
+else
+-- High-DPI / 4K / large display
+baseScale=math.min(vp.Y/1080,1.4)
+end
+ad.Scale=math.clamp((vp.Y/450)*baseScale,0.55,2.0)
+end
+_dpiScale()
+u(workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"),_dpiScale)
 local ae={
 Title=ab[1]or ab.Name or ab.Title,
 SubTitle=ab[2]or ab.SubName or ab.SubTitle,
@@ -3992,5 +4000,227 @@ function s:GetVersion()
 end
 function s:GetAuthor()
   return "von63rd"
+end
+
+-- ── Stats HUD ─────────────────────────────────────────────────────────────
+-- A draggable floating overlay that displays live game stats.
+-- Usage:
+--   local HUD = Library:MakeStatsHUD({ Stats={"Ping","FPS","Playtime","Time","Memory"} })
+--   HUD:SetVisible(false)
+--   HUD:AddStat("My Stat", function() return tostring(myValue) end)
+--   HUD:Destroy()
+
+local _STAT_PROVIDERS={
+Ping=function()
+local ok,v=pcall(function()
+return math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"].Value)
+end)
+return ok and(tostring(v).." ms")or"-- ms"
+end,
+FPS=function()
+-- approximated from last heartbeat delta stored below
+return tostring(math.floor(1/math.max(0.001,_G.__vonlib_dt or 0.016))).." fps"
+end,
+Playtime=function()
+local t=tick()-(_G.__vonlib_startTime or tick())
+local h=math.floor(t/3600)
+local m=math.floor((t%3600)/60)
+local s=math.floor(t%60)
+if h>0 then return string.format("%dh %02dm %02ds",h,m,s)end
+if m>0 then return string.format("%dm %02ds",m,s)end
+return string.format("%ds",s)
+end,
+Time=function()
+return os.date("%H:%M:%S")
+end,
+Memory=function()
+return string.format("%.1f KB",gcinfo())
+end,
+Players=function()
+return tostring(#game:GetService("Players"):GetPlayers()).." online"
+end,
+Game=function()
+local ok,name=pcall(function()
+return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+end)
+return ok and name:sub(1,18)or"Unknown"
+end,
+}
+_G.__vonlib_startTime=_G.__vonlib_startTime or tick()
+-- Track heartbeat delta for FPS
+n:Connect(function(dt)_G.__vonlib_dt=dt end)
+
+function s:MakeStatsHUD(ab)
+ab=ab or{}
+local statKeys=ab.Stats or ab[1]or{"Ping","FPS","Playtime","Time"}
+local startPos=ab.Position or UDim2.new(0,8,0.5,0)
+local initiallyVisible=ab.Visible~=false
+
+-- Outer container (transparent, just for layout + drag)
+local hudRoot=E("Frame","VonLibHUD",I,{
+Size=UDim2.new(0,110,0,0),
+Position=startPos,
+BackgroundTransparency=1,
+AutomaticSize=Enum.AutomaticSize.Y,
+ZIndex=10
+})
+
+-- Background card
+local hudBg=E("Frame","BG",hudRoot,{
+Size=UDim2.fromScale(1,1),
+BackgroundColor3=Color3.fromRGB(12,12,18),
+BackgroundTransparency=0.18,
+ZIndex=10,
+Elements={Corner=UDim.new(0,7)}
+})
+E("UIStroke",hudBg,{
+Color=Color3.fromRGB(80,90,200),
+Thickness=1,
+Transparency=0.4
+})
+
+-- Drag handle strip
+local handle=E("TextButton","Handle",hudRoot,{
+Size=UDim2.new(1,0,0,14),
+BackgroundColor3=Color3.fromRGB(20,20,32),
+BackgroundTransparency=0.1,
+Text="⠿ VonLib",
+TextSize=8,
+TextColor3=Color3.fromRGB(140,145,200),
+Font=Enum.Font.BuilderSansBold,
+AutoButtonColor=false,
+ZIndex=11,
+Elements={Corner=UDim.new(0,7)}
+})
+
+-- Stats row container
+local rowHolder=E("Frame","Rows",hudRoot,{
+Position=UDim2.fromOffset(0,16),
+Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1,
+ZIndex=10,
+Elements={
+ListLayout={
+SortOrder=Enum.SortOrder.LayoutOrder,
+Padding=UDim.new(0,1)
+},
+Padding={
+PaddingLeft=UDim.new(0,6),
+PaddingRight=UDim.new(0,6),
+PaddingBottom=UDim.new(0,6)
+}
+}
+})
+
+-- Row builder
+local statLabels={}
+local customProviders={}
+
+local function _makeRow(key,order)
+local row=E("Frame","Row_"..key,rowHolder,{
+Size=UDim2.new(1,0,0,13),
+BackgroundTransparency=1,
+LayoutOrder=order,
+ZIndex=10
+})
+local keyLbl=E("TextLabel","Key",row,{
+Size=UDim2.new(0.52,0,1,0),
+BackgroundTransparency=1,
+Text=key..":",
+TextSize=9,
+TextXAlignment=Enum.TextXAlignment.Left,
+TextColor3=Color3.fromRGB(140,145,200),
+Font=Enum.Font.BuilderSansMedium,
+ZIndex=11
+})
+local valLbl=E("TextLabel","Val",row,{
+Position=UDim2.fromScale(0.52,0),
+Size=UDim2.new(0.48,0,1,0),
+BackgroundTransparency=1,
+Text="--",
+TextSize=9,
+TextXAlignment=Enum.TextXAlignment.Right,
+TextColor3=Color3.fromRGB(220,222,240),
+Font=Enum.Font.BuilderSansBold,
+ZIndex=11
+})
+statLabels[key]=valLbl
+return row
+end
+
+for idx,key in ipairs(statKeys)do
+_makeRow(key,idx)
+end
+
+-- Dragging (uses same lerp pattern as the main window)
+local _dragActive=false
+local _dragStart,_frameStart
+u(handle.InputBegan,function(inp)
+if inp.UserInputType==Enum.UserInputType.MouseButton1
+or inp.UserInputType==Enum.UserInputType.Touch then
+_dragActive=true
+_dragStart=inp.Position
+_frameStart=hudRoot.Position
+end
+end)
+u(i.InputChanged,function(inp)
+if _dragActive and(
+inp.UserInputType==Enum.UserInputType.MouseMovement
+or inp.UserInputType==Enum.UserInputType.Touch)then
+local delta=inp.Position-_dragStart
+hudRoot.Position=UDim2.new(
+_frameStart.X.Scale,_frameStart.X.Offset+delta.X,
+_frameStart.Y.Scale,_frameStart.Y.Offset+delta.Y
+)
+end
+end)
+u(i.InputEnded,function(inp)
+if inp.UserInputType==Enum.UserInputType.MouseButton1
+or inp.UserInputType==Enum.UserInputType.Touch then
+_dragActive=false
+end
+end)
+
+-- Polling loop
+local _running=true
+local _conn=n:Connect(function()
+if not _running then return end
+for key,lbl in statLabels do
+local provider=customProviders[key]or _STAT_PROVIDERS[key]
+if provider and lbl.Parent then
+local ok,val=pcall(provider)
+lbl.Text=ok and tostring(val)or"err"
+end
+end
+end)
+table.insert(s.Connections,_conn)
+
+hudRoot.Visible=initiallyVisible
+
+-- Public API
+local api={}
+function api:SetVisible(v) hudRoot.Visible=v end
+function api:IsVisible() return hudRoot.Visible end
+function api:AddStat(name,provider,order)
+assert(type(name)=="string","AddStat: name must be string")
+assert(type(provider)=="function","AddStat: provider must be function")
+customProviders[name]=provider
+local ord=order or(#statKeys+1)
+_makeRow(name,ord)
+end
+function api:RemoveStat(name)
+statLabels[name]=nil
+customProviders[name]=nil
+local row=rowHolder:FindFirstChild("Row_"..name)
+if row then row:Destroy() end
+end
+function api:SetPosition(pos) hudRoot.Position=pos end
+function api:Destroy()
+_running=false
+_conn:Disconnect()
+hudRoot:Destroy()
+end
+return api
 end
 return s
