@@ -362,6 +362,31 @@ toggle:ApplyBadge("Beta")
 Tab:AddSection("Section Title")
 ```
 
+### Groupbox
+
+A bordered, titled card that groups related elements together. It supports every element a `Tab` does (`AddToggle`, `AddButton`, `AddSlider`, `AddDropdown`, `AddSection`, even a nested `AddGroupbox`) — just call them on the groupbox instead of the tab.
+
+```lua
+local Combat = Tab:AddGroupbox({
+  Name        = "Combat",
+  Description = "Aim and damage related settings", -- optional
+})
+
+Combat:AddToggle({ Name = "Silent Aim", Default = false, Callback = function(v) end })
+Combat:AddSlider({ Name = "FOV", Min = 10, Max = 200, Default = 90, Callback = function(v) end })
+
+-- Nest a groupbox inside another one
+local SubGroup = Combat:AddGroupbox({ Name = "Advanced" })
+SubGroup:AddToggle({ Name = "Prediction", Default = true, Callback = function(v) end })
+
+-- Rename / redescribe it later
+Combat:SetTitle("Combat Settings")
+Combat:SetDescription("Updated description")
+
+Combat:SetVisible(false)
+Combat:Destroy()
+```
+
 ### Toggle
 ```lua
 Tab:AddToggle({

@@ -1516,6 +1516,111 @@ Kind="Section",
 Parent=self
 },ai)
 end
+function ah:AddGroupbox(av)
+local aw,ax=an("Groupbox",av)
+local ay=V[self]
+local az=E("Frame","Option",T[self].Container,{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1
+})
+local aA=E("Frame","Card",az,{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,
+ThemeTag={OBJECTS=ay,BackgroundColor3="Colors.Buttons.Default"},
+Elements={
+Corner=UDim.new(0,8),
+Stroke={ThemeTag={OBJECTS=ay,Color="Colors.Border.Default"}},
+Padding={
+PaddingLeft=UDim.new(0,10),
+PaddingRight=UDim.new(0,10),
+PaddingTop=UDim.new(0,9),
+PaddingBottom=UDim.new(0,10)
+},
+ListLayout={
+SortOrder=Enum.SortOrder.LayoutOrder,
+Padding=UDim.new(0,4)
+}
+}
+})
+local aB=E("TextLabel","Title",aA,{
+Size=UDim2.new(1,0,0,14),
+BackgroundTransparency=1,
+TextXAlignment=Enum.TextXAlignment.Left,
+TextTruncate=Enum.TextTruncate.AtEnd,
+TextSize=12,
+Text=aw,
+LayoutOrder=1,
+Visible=aw~="",
+ThemeTag={OBJECTS=ay,TextColor3="Colors.Text.Default",Font="Font.Bold"}
+})
+local aC=E("TextLabel","Description",aA,{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1,
+TextXAlignment=Enum.TextXAlignment.Left,
+TextWrapped=true,
+TextSize=9,
+Text=ax,
+LayoutOrder=2,
+Visible=ax~="",
+ThemeTag={OBJECTS=ay,TextColor3="Colors.Text.Darker",Font="Font.Normal"}
+})
+if aw~=""or ax~=""then
+E("Frame","Divider",aA,{
+Size=UDim2.new(1,0,0,1),
+BackgroundTransparency=0.5,
+LayoutOrder=3,
+ThemeTag={OBJECTS=ay,BackgroundColor3="Colors.Stroke"}
+})
+end
+local aD=E("Frame","Container",aA,{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1,
+LayoutOrder=4,
+Elements={
+ListLayout={
+SortOrder=Enum.SortOrder.LayoutOrder,
+Padding=UDim.new(0,5)
+}
+}
+})
+local aE=setmetatable({
+Title=aw,
+Description=ax,
+DESTROY_ELEMENT=az,
+VISIBLE_ELEMENT=az,
+TITLE_LABEL=aB,
+DESCRIPTION_LABEL=aC,
+Kind="Groupbox",
+Parent=self
+},ah)
+T[aE]=table.freeze{Container=aD}
+V[aE]=ay
+function aE:SetTitle(aF)
+assert(type(aF)=="string",`"Groupbox.SetTitle". 'string' expected, got {typeof(aF)}`)
+self.Title=aF
+aB.Text=aF
+aB.Visible=aF~=""
+end
+function aE:SetDescription(aF)
+assert(aF==nil or type(aF)=="string",`"Groupbox.SetDescription". 'string', or 'nil' expected, got {typeof(aF)}`)
+aF=aF or""
+self.Description=aF
+aC.Text=aF
+aC.Visible=aF~=""
+end
+function aE:Destroy()
+if self.Destroyed then return end
+az:Destroy()
+T[self]=nil
+V[self]=nil
+self.Destroyed=true
+setmetatable(self,nil)
+end
+return aE
+end
 function ah:AddToggle(av)
 local aw,ax=an("Toggle",av)
 local ay=ao("Toggle",av[4]or av.Flag)
