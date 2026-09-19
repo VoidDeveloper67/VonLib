@@ -2434,6 +2434,7 @@ function ah:AddColorPicker(av)
     VISIBLE_ELEMENT=aC,
     TITLE_LABEL=aD,
     DESCRIPTION_LABEL=aE,
+    Title=aw,
     Parent=self,
     Kind="ColorPicker"
   },ai)
@@ -2788,6 +2789,62 @@ a1(not aO)
 end)
 return aL
 end
+local _vlSearchIndex={}
+local function vlRegisterSearchable(owner,result)
+if type(result)~="table"or result.VISIBLE_ELEMENT==nil or result.TITLE_LABEL==nil then return end
+local tab=owner
+while tab~=nil and not tab.IS_A_TAB do
+tab=tab.Parent
+end
+if tab==nil then return end
+_vlSearchIndex[tab]=_vlSearchIndex[tab]or{}
+local entry={TitleLabel=result.TITLE_LABEL,VisibleElement=result.VISIBLE_ELEMENT,Owner=owner._searchEntry}
+table.insert(_vlSearchIndex[tab],entry)
+result._searchEntry=entry
+end
+for methodName,fn in pairs(ah)do
+if type(fn)=="function"and methodName:sub(1,3)=="Add"then
+ah[methodName]=function(self,...)
+local result=fn(self,...)
+vlRegisterSearchable(self,result)
+return result
+end
+end
+end
+function s:_ApplySearch(tab,query)
+local entries=_vlSearchIndex[tab]
+if not entries then return end
+query=(query or""):lower()
+if query==""then
+for _,entry in entries do
+entry.VisibleElement.Visible=true
+entry.Matches=nil
+end
+return
+end
+for _,entry in entries do
+entry.Matches=entry.TitleLabel.Text:lower():find(query,1,true)~=nil
+end
+for i=#entries,1,-1 do
+local entry=entries[i]
+if entry.Matches and entry.Owner then
+entry.Owner.Matches=true
+end
+end
+for _,entry in entries do
+entry.VisibleElement.Visible=entry.Matches==true
+end
+end
+function s:Search(query)
+assert(type(query)=="string",`"Library.Search". 'string' expected, got {typeof(query)}`)
+self.SearchQuery=query
+if self.CurrentTab then
+self:_ApplySearch(self.CurrentTab,query)
+end
+end
+function s:ClearSearch()
+self:Search("")
+end
 function ah:Destroy()
 assert(type(self)=="table"and self.IS_A_TAB,`"Tab.Destroy". {tostring(self)} is not a tab`)
 if self.IS_DESTROYED then return end
@@ -2800,6 +2857,7 @@ end
 V[self]:destroy()
 T[self]=nil
 V[self]=nil
+_vlSearchIndex[self]=nil
 setmetatable(self,nil)
 end
 function ah:SetVisible(av)
@@ -2817,6 +2875,10 @@ U[ac].Unselect()
 end
 ac=self
 U[ac].Select()
+s.CurrentTab=self
+if s.SearchQuery and s.SearchQuery~=""then
+s:_ApplySearch(self,s.SearchQuery)
+end
 end
 function ai:SetTitle(av)
 assert(type(av)=="string",`"Option.SetTitle". 'string' expected, got {typeof(av)}`)
@@ -3644,10 +3706,36 @@ ag.GetTabByName=ag.GetTabByTitle
 ag.Notificafion=ag.Notify
 R.Window=ag
 end local aa=function(
-aa, ab)
+aa, ab, searchEnabled)
 local ac=ab.Size.Y.Offset
-local ad=UDim2.new(0,aa.TabSize or s.Default.TabSize,1,-ac)
+local searchBarHeight=(searchEnabled~=false)and 26 or 0
+local ad=UDim2.new(0,aa.TabSize or s.Default.TabSize,1,-(ac+searchBarHeight))
 local ae=UDim2.new(1,-ad.X.Offset,1,-ac)
+local searchBox
+if searchEnabled~=false then
+searchBox=E("TextBox","SearchBox",{
+Size=UDim2.new(0,aa.TabSize or s.Default.TabSize,0,20),
+Position=UDim2.new(0,0,0,ac),
+ClearTextOnFocus=false,
+PlaceholderText="Search...",
+Text="",
+TextSize=10,
+TextXAlignment=Enum.TextXAlignment.Left,
+Elements={
+Corner=UDim.new(0,6),
+Padding={
+PaddingLeft=UDim.new(0,10),
+PaddingRight=UDim.new(0,8)
+}
+},
+ThemeTag={
+BackgroundColor3="Colors.Stroke",
+TextColor3="Colors.Text.Default",
+PlaceholderColor3="Colors.Text.Darker",
+Font="Font.Normal"
+}
+})
+end
 local af=E("ScrollingFrame","TabsScroll",{
 AutomaticCanvasSize=Enum.AutomaticSize.Y,
 ScrollingDirection=Enum.ScrollingDirection.Y,
@@ -3681,7 +3769,7 @@ Position=UDim2.new(1,0,1,0),
 BackgroundTransparency=1,
 ClipsDescendants=true
 })
-return af,ag end
+return af,ag,searchBox end
 function s:GetIconByName(ab)
 if ab==nil then return end
 assert(ab,`"Library.GetIconByName". 'string' expected, got {typeof(ab)}`)
@@ -4117,14 +4205,21 @@ local ar=ap.Close
 local as=setmetatable(ae,{
 __index=R.Window
 })
-local at,au=aa(af,an)
+local at,au,aSearchBox=aa(af,an,ab.DisableSearch~=true)
 at.Parent=al
 au.Parent=al
+if aSearchBox then
+aSearchBox.Parent=al
+u(aSearchBox:GetPropertyChangedSignal"Text",function()
+s:Search(aSearchBox.Text)
+end)
+end
 local av=table.freeze{
 ContainerHolder=au,
 TabsContainer=at,
 Components=al,
-MainFrame=ak
+MainFrame=ak,
+SearchBox=aSearchBox
 }
 function as:GetElements()
 return av

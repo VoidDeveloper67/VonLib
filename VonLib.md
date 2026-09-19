@@ -39,6 +39,27 @@ local Window = Library:MakeWindow({
 
 ---
 
+## 🔍 Search
+
+Every window ships with a live search box above the tab list (borrowed from Obsidian's search UX). Typing filters the **currently selected tab** down to elements whose title matches, including groupboxes — a groupbox stays visible if its own title matches *or* any element inside it does, so you never see an empty box.
+
+```lua
+local Window = Library:MakeWindow({
+  Title        = "My Hub : Game Name",
+  SubTitle     = "by von63rd",
+  ScriptFolder = "vonlib",
+  DisableSearch = false, -- default; set true to remove the search box entirely
+})
+
+-- Drive it programmatically too:
+Library:Search("aim")
+Library:ClearSearch()
+```
+
+Switching tabs re-applies whatever query is currently typed, so the filter follows you around the window instead of resetting.
+
+---
+
 ## 🪟 Window API
 
 | Method | Description |
@@ -56,6 +77,8 @@ local Window = Library:MakeWindow({
 | `DeleteConfig(name)` | Delete a config file ⭐ |
 | `ResetConfig(name?)` | Reset elements to defaults ⭐ |
 | `MakeStatsHUD(config)` | Create a draggable live-stats overlay ⭐ NEW |
+| `Search(query)` | Filter the current tab's elements by title ⭐ NEW |
+| `ClearSearch()` | Clear the active search filter ⭐ NEW |
 | `SetBackgroundVideo(url, overlay?)` | Set a video background ⭐ |
 | `PauseBackgroundVideo()` | Pause the background video ⭐ |
 | `PlayBackgroundVideo()` | Resume the background video ⭐ |
