@@ -1750,6 +1750,126 @@ aE:SetPoppedOut(true)
 end
 return aE
 end
+function ah:AddTabbox(av)
+av=av or{}
+local ay=V[self]
+local az=E("Frame","Option",T[self].Container,{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1
+})
+local aA=E("Frame","TabStrip",az,{
+Size=UDim2.new(1,0,0,30),
+ThemeTag={OBJECTS=ay,BackgroundColor3="Colors.Stroke"},
+Elements={
+Corner=UDim.new(0,6)
+}
+})
+local aB=E("Frame","Pages",az,{
+Position=UDim2.fromOffset(0,34),
+Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1
+})
+local aC={}
+local aD={}
+local aEIndex=nil
+local function relayout()
+local aF=#aC
+for aG=1,aF do
+aC[aG].Size=UDim2.new(1/aF,0,1,0)
+aC[aG].Position=UDim2.new((aG-1)/aF,0,0,0)
+end
+end
+local function selectIndex(aF)
+if aEIndex==aF then return end
+aEIndex=aF
+for aG,aH in aC do
+local aI=aG==aF
+J(aH,"BackgroundTransparency",aI and 0 or 1,0.15):Play()
+local aJ=aH:FindFirstChildWhichIsA("ImageLabel")
+if aJ then
+J(aJ,"ImageTransparency",aI and 0 or 0.45,0.15):Play()
+end
+local aK=aH:FindFirstChildWhichIsA("TextLabel")
+if aK then
+aK.TextTransparency=aI and 0 or 0.45
+end
+end
+for aG,aH in aD do
+aH.Visible=aG==aF
+end
+end
+local aL={}
+function aL:AddTab(aM)
+aM=aM or{}
+local aN=aM.Icon or aM.Image
+local aO=aM[1]or aM.Name or aM.Title
+local aP=#aC+1
+local aQ=E("TextButton","Tab",aA,{
+BackgroundTransparency=1,
+AutoButtonColor=false,
+Text="",
+Elements={Corner=UDim.new(0,6)},
+ThemeTag={OBJECTS=ay,BackgroundColor3="Colors.Buttons.Holding"}
+})
+if aN then
+E("ImageLabel",aQ,{
+Size=UDim2.fromOffset(16,16),
+Position=UDim2.fromScale(0.5,0.5),
+AnchorPoint=Vector2.new(0.5,0.5),
+BackgroundTransparency=1,
+Image=s:GetIconByName(aN)or"",
+ImageTransparency=0.45,
+ThemeTag={OBJECTS=ay,ImageColor3="Colors.Icons"}
+})
+elseif aO then
+E("TextLabel",aQ,{
+Size=UDim2.fromScale(1,1),
+BackgroundTransparency=1,
+Text=aO,
+TextSize=10,
+TextTransparency=0.45,
+ThemeTag={OBJECTS=ay,TextColor3="Colors.Text.Default",Font="Font.Bold"}
+})
+end
+local aR=E("Frame","Page",aB,{
+Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1,
+Visible=false,
+Elements={
+ListLayout={
+SortOrder=Enum.SortOrder.LayoutOrder,
+Padding=UDim.new(0,5)
+}
+}
+})
+table.insert(aC,aQ)
+table.insert(aD,aR)
+relayout()
+u(aQ.Activated,function()
+selectIndex(aP)
+end)
+local aS=setmetatable({
+Parent=self,
+Kind="TabboxPage"
+},ah)
+T[aS]=table.freeze{Container=aR}
+V[aS]=ay
+function aS:Destroy()
+aR:Destroy()
+end
+if aP==1 or aM.Default==true then
+selectIndex(aP)
+end
+return aS
+end
+function aL:Destroy()
+az:Destroy()
+end
+return aL
+end
 function ah:AddToggle(av)
 local aw,ax=an("Toggle",av)
 local ay=ao("Toggle",av[4]or av.Flag)

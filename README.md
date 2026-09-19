@@ -211,7 +211,7 @@ Every `Tab:AddX(...)` call below returns an element object supporting the common
 
 ## 🧩 Groupbox
 
-A bordered, titled card that groups related elements. It supports every element a `Tab` does (`AddToggle`, `AddButton`, `AddSlider`, `AddDropdown`, `AddSection`, even a nested `AddGroupbox`) — just call them on the groupbox instead of the tab.
+A bordered, titled card that groups related elements. It supports every element a `Tab` does (`AddToggle`, `AddButton`, `AddSlider`, `AddDropdown`, `AddSection`, a nested `AddGroupbox`, even `AddTabbox`) — just call them on the groupbox instead of the tab.
 
 ```lua
 local Combat = Tab:AddGroupbox({
@@ -254,6 +254,26 @@ Tab:AddButton({
   Callback = function() Combat:SetPoppedOut(not Combat.PoppedOut) end
 })
 ```
+
+**Tabs inside a groupbox.** `AddTabbox` puts a row of small icon (or text) tabs at the top of whatever it's added to, each one switching to its own set of elements underneath — handy for packing several related panels (buy / sell / auto, say) into one card instead of a long scroll. Works on a `Tab` directly too, not just a `Groupbox`.
+
+```lua
+local Economy = Tab:AddGroupbox({ Name = "Economy" })
+local Tabs = Economy:AddTabbox()
+
+local BuyTab = Tabs:AddTab({ Icon = "dollar-sign" }) -- fuzzy-matched name, or pass a raw rbxassetid://...
+local SellTab = Tabs:AddTab({ Icon = "refresh-cw" })
+local UpgradeTab = Tabs:AddTab({ Icon = "arrow-up" })
+local AutoTab = Tabs:AddTab({ Icon = "zap" })
+
+BuyTab:AddLabel("Planned Order")
+BuyTab:AddDropdown({ Name = "Select Items", Options = { "Bisonte Giuppitere", "Esok Sekolah" }, MultiSelect = true })
+
+AutoTab:AddToggle({ Name = "Wait for 100% Luck Boost", Default = false, Flag = "wait_luck", Callback = function(v) end })
+AutoTab:AddToggle({ Name = "Auto Fuse", Default = false, Flag = "auto_fuse", Callback = function(v) end })
+```
+
+Prefer text over icons? Pass `Name`/`Title` instead of `Icon` on `AddTab` and it renders as a small label instead. The first tab added is selected by default — pass `Default = true` on a later `AddTab` call to start on that one instead. Each returned tab page supports every element method a `Tab` does, same as a groupbox.
 
 ---
 
@@ -642,6 +662,21 @@ Prediction:AddSlider({ Name = "Strength", Min = 0, Max = 100, Default = 50, Flag
 local Visuals = MainTab:AddGroupbox({ Name = "Visuals", Collapsed = true })
 Visuals:AddToggle({ Name = "ESP", Default = false, Flag = "esp_enabled", Callback = function(v) end })
 Visuals:AddColorPicker({ Name = "ESP Color", Default = Color3.fromRGB(255, 0, 0), Flag = "esp_color", Callback = function(c) end })
+
+-- A groupbox holding a Tabbox: several icon-switched panels in one card
+local Economy = MainTab:AddGroupbox({ Name = "Economy" })
+local EconomyTabs = Economy:AddTabbox()
+
+local BuyTab = EconomyTabs:AddTab({ Icon = "dollar-sign" })
+local SellTab = EconomyTabs:AddTab({ Icon = "refresh-cw" })
+local UpgradeTab = EconomyTabs:AddTab({ Icon = "arrow-up" })
+local AutoTab = EconomyTabs:AddTab({ Icon = "zap" })
+
+BuyTab:AddDropdown({ Name = "Select Items", Options = { "Bisonte Giuppitere", "Esok Sekolah" }, MultiSelect = true })
+SellTab:AddButton({ Name = "Sell All", Callback = function() end })
+UpgradeTab:AddButton({ Name = "Upgrade Slot", Callback = function() end })
+AutoTab:AddToggle({ Name = "Wait for 100% Luck Boost", Default = false, Flag = "wait_luck", Callback = function(v) end })
+AutoTab:AddToggle({ Name = "Auto Fuse", Default = false, Flag = "auto_fuse", Callback = function(v) end })
 
 -- Popped out so it stays visible on screen while you use other tabs
 local Watermark = MainTab:AddGroupbox({ Name = "Watermark", PopOut = true })
