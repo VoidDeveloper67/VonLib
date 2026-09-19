@@ -1519,6 +1519,8 @@ end
 function ah:AddGroupbox(av)
 local aw,ax=an("Groupbox",av)
 local ay=V[self]
+local canCollapse=av.DisableCollapsing~=true and aw~=""
+local collapsed=canCollapse and av.Collapsed==true
 local az=E("Frame","Option",T[self].Container,{
 Size=UDim2.new(1,0,0,0),
 AutomaticSize=Enum.AutomaticSize.Y,
@@ -1543,17 +1545,37 @@ Padding=UDim.new(0,4)
 }
 }
 })
-local aB=E("TextLabel","Title",aA,{
+local aHeaderProps={
 Size=UDim2.new(1,0,0,14),
+BackgroundTransparency=1,
+LayoutOrder=1
+}
+if canCollapse then
+aHeaderProps.AutoButtonColor=false
+aHeaderProps.Text=""
+end
+local aHeader=E(canCollapse and"TextButton"or"Frame","Header",aA,aHeaderProps)
+local aB=E("TextLabel","Title",aHeader,{
+Size=UDim2.new(1,canCollapse and-16 or 0,1,0),
 BackgroundTransparency=1,
 TextXAlignment=Enum.TextXAlignment.Left,
 TextTruncate=Enum.TextTruncate.AtEnd,
 TextSize=12,
 Text=aw,
-LayoutOrder=1,
 Visible=aw~="",
 ThemeTag={OBJECTS=ay,TextColor3="Colors.Text.Default",Font="Font.Bold"}
 })
+local aChevronTag,aChevron
+if canCollapse then
+aChevronTag={OBJECTS=ay,Image=collapsed and"Icons.Dropdown.Open"or"Icons.Dropdown.Close",ImageColor3="Colors.Icons"}
+aChevron=E("ImageLabel",aHeader,{
+Size=UDim2.fromOffset(10,10),
+Position=UDim2.new(1,0,0.5,0),
+AnchorPoint=Vector2.new(1,0.5),
+BackgroundTransparency=1,
+ThemeTag=aChevronTag
+})
+end
 local aC=E("TextLabel","Description",aA,{
 Size=UDim2.new(1,0,0,0),
 AutomaticSize=Enum.AutomaticSize.Y,
@@ -1563,17 +1585,14 @@ TextWrapped=true,
 TextSize=9,
 Text=ax,
 LayoutOrder=2,
-Visible=ax~="",
 ThemeTag={OBJECTS=ay,TextColor3="Colors.Text.Darker",Font="Font.Normal"}
 })
-if aw~=""or ax~=""then
-E("Frame","Divider",aA,{
+local aDivider=E("Frame","Divider",aA,{
 Size=UDim2.new(1,0,0,1),
 BackgroundTransparency=0.5,
 LayoutOrder=3,
 ThemeTag={OBJECTS=ay,BackgroundColor3="Colors.Stroke"}
 })
-end
 local aD=E("Frame","Container",aA,{
 Size=UDim2.new(1,0,0,0),
 AutomaticSize=Enum.AutomaticSize.Y,
@@ -1586,6 +1605,14 @@ Padding=UDim.new(0,5)
 }
 }
 })
+local currentDescription=ax
+local function updateHeaderVisibility()
+aC.Visible=not collapsed and currentDescription~=""
+aDivider.Visible=not collapsed and(aw~=""or currentDescription~="")
+aD.Visible=not collapsed
+end
+updateHeaderVisibility()
+local aPopFrame
 local aE=setmetatable({
 Title=aw,
 Description=ax,
@@ -1593,6 +1620,8 @@ DESTROY_ELEMENT=az,
 VISIBLE_ELEMENT=az,
 TITLE_LABEL=aB,
 DESCRIPTION_LABEL=aC,
+Collapsed=collapsed,
+PoppedOut=false,
 Kind="Groupbox",
 Parent=self
 },ah)
@@ -1608,16 +1637,111 @@ function aE:SetDescription(aF)
 assert(aF==nil or type(aF)=="string",`"Groupbox.SetDescription". 'string', or 'nil' expected, got {typeof(aF)}`)
 aF=aF or""
 self.Description=aF
+currentDescription=aF
 aC.Text=aF
-aC.Visible=aF~=""
+updateHeaderVisibility()
+end
+function aE:SetVisible(aF)
+assert(type(aF)=="boolean",`"Groupbox.SetVisible". 'boolean' expected, got {typeof(aF)}`)
+az.Visible=aF
+if aPopFrame then
+aPopFrame.Visible=aF
+end
+end
+function aE:SetCollapsed(aF)
+if not canCollapse then return end
+aF=aF and true or false
+if aF==collapsed then return end
+collapsed=aF
+self.Collapsed=aF
+updateHeaderVisibility()
+local aG=collapsed and"Icons.Dropdown.Open"or"Icons.Dropdown.Close"
+aChevronTag.Image=aG
+aChevron.Image=w(s.CurrentTheme,aG)
+end
+function aE:ToggleCollapsed()
+self:SetCollapsed(not collapsed)
+end
+if canCollapse then
+u(aHeader.Activated,function()
+aE:ToggleCollapsed()
+end)
+u(aHeader.MouseEnter,function()
+J(aA,"BackgroundTransparency",0.08,0.15):Play()
+end)
+u(aHeader.MouseLeave,function()
+J(aA,"BackgroundTransparency",0,0.15):Play()
+end)
+end
+function aE:SetPoppedOut(aF)
+aF=aF and true or false
+if aF==self.PoppedOut then return end
+self.PoppedOut=aF
+if aF then
+local aAbsPos=aA.AbsolutePosition
+local aAbsSize=aA.AbsoluteSize
+local aWidth=math.max(200,aAbsSize.X)
+local aMaxHeight=math.max(120,workspace.CurrentCamera.ViewportSize.Y-aAbsPos.Y-30)
+local aBodyHeight=math.min(math.max(aAbsSize.Y,40),aMaxHeight)
+aPopFrame=E("Frame","PopOut",I,{
+Size=UDim2.fromOffset(aWidth,0),
+Position=UDim2.fromOffset(aAbsPos.X,aAbsPos.Y),
+AutomaticSize=Enum.AutomaticSize.Y,
+Active=true,
+ZIndex=50,
+ThemeTag={BackgroundColor3="Colors.Dialog.Background"},
+Elements={
+Corner=UDim.new(0,8),
+Stroke={ThemeTag={Color="Colors.Border.Default"}}
+}
+})
+local aDockBtn=E("ImageButton","Dock",aPopFrame,{
+Size=UDim2.fromOffset(16,16),
+Position=UDim2.new(1,-5,0,5),
+AnchorPoint=Vector2.new(1,0),
+AutoButtonColor=false,
+ZIndex=52,
+ThemeTag={BackgroundColor3="Colors.Buttons.Default",Image="Icons.Close",ImageColor3="Colors.Icons"},
+Elements={Corner=UDim.new(0,4)}
+})
+u(aDockBtn.Activated,function()
+aE:SetPoppedOut(false)
+end)
+local aScroller=E("ScrollingFrame","Body",aPopFrame,{
+Size=UDim2.new(1,0,0,aBodyHeight),
+Position=UDim2.fromOffset(0,0),
+BackgroundTransparency=1,
+BorderSizePixel=0,
+ScrollBarThickness=2.2,
+ScrollingDirection=Enum.ScrollingDirection.Y,
+AutomaticCanvasSize=Enum.AutomaticSize.Y,
+CanvasSize=UDim2.new(),
+ThemeTag={ScrollBarImageColor3="Colors.ScrollBar"}
+})
+aA.Parent=aScroller
+local aUIScale=I:FindFirstChild"Scale"
+D.Draggable(aPopFrame,aUIScale,0.35)
+else
+if aPopFrame then
+aA.Parent=az
+aPopFrame:Destroy()
+aPopFrame=nil
+end
+end
 end
 function aE:Destroy()
 if self.Destroyed then return end
+if aPopFrame then
+aPopFrame:Destroy()
+end
 az:Destroy()
 T[self]=nil
 V[self]=nil
 self.Destroyed=true
 setmetatable(self,nil)
+end
+if av.PopOut==true then
+aE:SetPoppedOut(true)
 end
 return aE
 end

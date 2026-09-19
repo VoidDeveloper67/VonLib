@@ -410,6 +410,31 @@ Combat:SetVisible(false)
 Combat:Destroy()
 ```
 
+**Collapsing.** A titled groupbox is collapsible by default — click its header to expand/collapse, a chevron shows the current state. Pass `Collapsed = true` to start collapsed, or `DisableCollapsing = true` to remove the click-to-collapse behaviour entirely (a groupbox with no title is never collapsible).
+
+```lua
+local Combat = Tab:AddGroupbox({
+  Name      = "Combat",
+  Collapsed = true, -- starts collapsed
+})
+
+Combat:SetCollapsed(false)
+Combat:ToggleCollapsed()
+print(Combat.Collapsed)
+```
+
+**Popping out.** Undock a groupbox into a draggable floating panel that stays on screen regardless of which tab is selected — useful for settings you want visible while using the rest of the menu. The panel gets its own scrollbar and clamps to the screen height; click the small close button on it (or call `SetPoppedOut(false)`) to dock it back into place.
+
+```lua
+local Combat = Tab:AddGroupbox({ Name = "Combat", PopOut = true }) -- starts popped out
+
+-- Or toggle it from elsewhere, e.g. a button:
+Tab:AddButton({
+  Name = "Pop Out Combat",
+  Callback = function() Combat:SetPoppedOut(not Combat.PoppedOut) end
+})
+```
+
 ### Toggle
 ```lua
 Tab:AddToggle({
