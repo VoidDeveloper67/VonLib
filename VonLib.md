@@ -148,7 +148,7 @@ print(Library:GetMaxScale())  -- 1.6
 
 ## 🎨 Themes
 
-Six fully distinct colour themes, each built around a unique neon accent hue. Switch at any time — all UI elements update instantly.
+Six built-in colour themes, each built around a unique neon accent hue, plus full support for your **own custom colour themes** — dark or light. Switch at any time — all UI elements (including the Stats HUD) update instantly.
 
 | Theme | Accent | Vibe |
 |---|---|---|
@@ -173,6 +173,37 @@ ConfigTab:AddDropdown({
   Callback = function(v) Library:SetTheme(v) end
 })
 ```
+
+### 🖌️ Custom colour themes
+
+You are not limited to the six presets. Give `CreateTheme` a name and as few or as many colours as you want — anything you leave out is generated automatically from `Primary`/`Background` (including readable text/border shades for **light** backgrounds, not just dark ones):
+
+```lua
+-- Minimal: just pick an accent and a background, everything else is derived
+Library:CreateTheme("Toxic", {
+  Primary    = Color3.fromRGB(190, 255, 0),
+  Background = Color3.fromRGB(6, 10, 4),
+})
+
+-- A light theme works the same way — text/border contrast is computed for you
+Library:CreateTheme("Paper", {
+  Primary    = "#2D6CDF",       -- hex strings work too
+  Background = Color3.fromRGB(245, 245, 240),
+})
+
+Library:SetTheme("Toxic")
+
+-- Register it and switch to it immediately in one call:
+Library:CreateTheme("Blood", { Primary = "#FF1744", Background = "#120404", Apply = true })
+
+-- Or skip registering a name entirely and just apply a one-off theme:
+Library:SetCustomTheme({ Primary = Color3.fromRGB(255, 170, 0), Background = "#111318" })
+
+-- Fully custom themes also show up in GetThemes(), so a theme dropdown
+-- built from CreateTheme calls works exactly like the presets above.
+```
+
+Every field can also be set explicitly (`OnPrimary`, `ScrollBar`, `Stroke`, `Error`, `IconColor`, `JoinButton`, `Link`, `DialogBackground`, `ButtonsHolding`, `ButtonsDefault`, `BorderHolding`, `BorderDefault`, `Text`, `TextDark`, `TextDarker`, `SliderBar`, `SliderNumber`, `DropdownHolder`, `BackgroundTransparency`), or you can pass a full raw `Colors` table to override the generated palette wholesale. `Base` picks which built-in theme to inherit icons/fonts/fallbacks from (defaults to `"Darker"`).
 
 ---
 

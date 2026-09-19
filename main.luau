@@ -3621,6 +3621,131 @@ self.CurrentTheme=ac
 self.WindowSettings.SelectedTheme=ac.Name
 C:update()
 end
+local function VL_ToColor3(color)
+  if typeof(color)=="Color3" then return color end
+  if type(color)=="string" then
+    local hex=color:gsub("#","")
+    if #hex==6 then
+      local r=tonumber(hex:sub(1,2),16)
+      local g=tonumber(hex:sub(3,4),16)
+      local b=tonumber(hex:sub(5,6),16)
+      if r and g and b then return Color3.fromRGB(r,g,b) end
+    end
+  end
+  return nil
+end
+local function VL_Shade(color,amount)
+  if amount>=0 then
+    return color:Lerp(Color3.new(1,1,1),math.clamp(amount,0,1))
+  end
+  return color:Lerp(Color3.new(0,0,0),math.clamp(-amount,0,1))
+end
+local function VL_Luminance(color)
+  return 0.299*color.R+0.587*color.G+0.114*color.B
+end
+local function VL_ContrastText(bg)
+  return VL_Luminance(bg)>0.6 and Color3.fromRGB(20,20,20) or Color3.fromRGB(255,255,255)
+end
+local function VL_MergeTable(base,over)
+  if type(over)~="table" then return base end
+  local out={}
+  for k,v in base do out[k]=v end
+  for k,v in over do
+    if type(v)=="table" and type(out[k])=="table" then
+      out[k]=VL_MergeTable(out[k],v)
+    else
+      out[k]=v
+    end
+  end
+  return out
+end
+function s:CreateTheme(ab,ac)
+  assert(type(ab)=="string",`"Library.CreateTheme". 'string' expected, got {typeof(ab)}`)
+  assert(ac==nil or type(ac)=="table",`"Library.CreateTheme". 'table' expected, got {typeof(ac)}`)
+  ac=ac or {}
+  local base=(type(ac.Base)=="string" and self.Themes[ac.Base]) or self.Themes.Darker
+  local primary=VL_ToColor3(ac.Primary or ac.Accent) or base.Colors.Primary
+  local bgSequence,bgColor
+  if typeof(ac.Background)=="ColorSequence" then
+    bgSequence=ac.Background
+    bgColor=base.Colors.Buttons.Default
+  else
+    bgColor=VL_ToColor3(ac.Background)
+    if bgColor then
+      bgSequence=ColorSequence.new{
+        ColorSequenceKeypoint.new(0.00,bgColor),
+        ColorSequenceKeypoint.new(0.50,VL_Shade(bgColor,0.15)),
+        ColorSequenceKeypoint.new(1.00,bgColor)
+      }
+    else
+      bgSequence=base.Colors.Background
+      bgColor=base.Colors.Buttons.Default
+    end
+  end
+  local light=VL_Luminance(bgColor)>0.6
+  local text=VL_ToColor3(ac.Text) or VL_ContrastText(bgColor)
+  local colors={
+    Background=bgSequence,
+    Primary=primary,
+    OnPrimary=VL_ToColor3(ac.OnPrimary) or VL_Shade(primary,-0.35),
+    ScrollBar=VL_ToColor3(ac.ScrollBar) or primary,
+    Stroke=VL_ToColor3(ac.Stroke) or VL_Shade(bgColor,light and -0.12 or 0.14),
+    Error=VL_ToColor3(ac.Error) or base.Colors.Error,
+    Icons=VL_ToColor3(ac.IconColor) or text,
+    JoinButton=VL_ToColor3(ac.JoinButton) or base.Colors.JoinButton,
+    Link=VL_ToColor3(ac.Link) or VL_Shade(primary,0.15),
+    Dialog={Background=VL_ToColor3(ac.DialogBackground) or VL_Shade(bgColor,light and -0.08 or -0.04)},
+    Buttons={
+      Holding=VL_ToColor3(ac.ButtonsHolding) or VL_Shade(bgColor,light and -0.1 or 0.1),
+      Default=VL_ToColor3(ac.ButtonsDefault) or VL_Shade(bgColor,light and -0.06 or 0.06)
+    },
+    Border={
+      Holding=VL_ToColor3(ac.BorderHolding) or primary,
+      Default=VL_ToColor3(ac.BorderDefault) or VL_Shade(bgColor,light and -0.15 or 0.18)
+    },
+    Text={
+      Default=text,
+      Dark=VL_ToColor3(ac.TextDark) or VL_Shade(text,light and 0.35 or -0.22),
+      Darker=VL_ToColor3(ac.TextDarker) or VL_Shade(text,light and 0.55 or -0.4)
+    },
+    Slider={
+      SliderBar=VL_ToColor3(ac.SliderBar) or primary,
+      SliderNumber=VL_ToColor3(ac.SliderNumber) or text
+    },
+    Dropdown={Holder=VL_ToColor3(ac.DropdownHolder) or VL_Shade(bgColor,light and -0.06 or 0.06)}
+  }
+  if type(ac.Colors)=="table" then
+    colors=VL_MergeTable(colors,ac.Colors)
+  end
+  local theme={
+    Name=ab,
+    Colors=colors,
+    Icons=type(ac.IconSet)=="table" and VL_MergeTable(base.Icons,ac.IconSet) or base.Icons,
+    Font=type(ac.Font)=="table" and VL_MergeTable(base.Font,ac.Font) or base.Font,
+    BackgroundTransparency=type(ac.BackgroundTransparency)=="number" and ac.BackgroundTransparency or base.BackgroundTransparency
+  }
+  table.freeze(theme)
+  self.Themes[ab]=theme
+  if ac.Apply then
+    if self.LOADED_UI_LIBRARY then
+      self:SetTheme(ab)
+    else
+      self.Default.Theme=ab
+    end
+  end
+  return theme
+end
+function s:SetCustomTheme(ac)
+  assert(type(ac)=="table",`"Library.SetCustomTheme". 'table' expected, got {typeof(ac)}`)
+  local name=type(ac.Name)=="string" and ac.Name or "Custom"
+  local theme=self:CreateTheme(name,ac)
+  if self.LOADED_UI_LIBRARY then
+    self:SetTheme(name)
+  else
+    self.Default.Theme=name
+  end
+  return theme
+end
 function s:SetUIScale(ab)
 local ac=B.MIN_SCALE
 local ad=B.MAX_SCALE
@@ -4068,28 +4193,26 @@ ZIndex=10
 -- Background card
 local hudBg=E("Frame","BG",hudRoot,{
 Size=UDim2.fromScale(1,1),
-BackgroundColor3=Color3.fromRGB(12,12,18),
 BackgroundTransparency=0.18,
 ZIndex=10,
+ThemeTag={BackgroundColor3="Colors.Dialog.Background"},
 Elements={Corner=UDim.new(0,7)}
 })
 E("UIStroke",hudBg,{
-Color=Color3.fromRGB(80,90,200),
 Thickness=1,
-Transparency=0.4
+Transparency=0.4,
+ThemeTag={Color="Colors.Border.Default"}
 })
 
 -- Drag handle strip
 local handle=E("TextButton","Handle",hudRoot,{
 Size=UDim2.new(1,0,0,14),
-BackgroundColor3=Color3.fromRGB(20,20,32),
 BackgroundTransparency=0.1,
 Text="⠿ VonLib",
 TextSize=8,
-TextColor3=Color3.fromRGB(140,145,200),
-Font=Enum.Font.BuilderSansBold,
 AutoButtonColor=false,
 ZIndex=11,
+ThemeTag={BackgroundColor3="Colors.Buttons.Default",TextColor3="Colors.Text.Dark",Font="Font.Bold"},
 Elements={Corner=UDim.new(0,7)}
 })
 
@@ -4130,9 +4253,8 @@ BackgroundTransparency=1,
 Text=key..":",
 TextSize=9,
 TextXAlignment=Enum.TextXAlignment.Left,
-TextColor3=Color3.fromRGB(140,145,200),
-Font=Enum.Font.BuilderSansMedium,
-ZIndex=11
+ZIndex=11,
+ThemeTag={TextColor3="Colors.Text.Darker",Font="Font.Medium"}
 })
 local valLbl=E("TextLabel","Val",row,{
 Position=UDim2.fromScale(0.52,0),
@@ -4141,9 +4263,8 @@ BackgroundTransparency=1,
 Text="--",
 TextSize=9,
 TextXAlignment=Enum.TextXAlignment.Right,
-TextColor3=Color3.fromRGB(220,222,240),
-Font=Enum.Font.BuilderSansBold,
-ZIndex=11
+ZIndex=11,
+ThemeTag={TextColor3="Colors.Text.Default",Font="Font.Bold"}
 })
 statLabels[key]=valLbl
 return row
