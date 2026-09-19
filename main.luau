@@ -1525,7 +1525,17 @@ function ah:AddGroupbox(av)
 local aw,ax=an("Groupbox",av)
 local ay=V[self]
 local canCollapse=av.DisableCollapsing~=true and aw~=""
-local collapsed=canCollapse and av.Collapsed==true
+if self.Accordion and not self._accordionGroup then
+self._accordionGroup={}
+end
+local collapsed
+if av.Collapsed~=nil then
+collapsed=canCollapse and av.Collapsed==true
+elseif canCollapse and self.Accordion and#self._accordionGroup>0 then
+collapsed=true
+else
+collapsed=false
+end
 local az=E("Frame","Option",T[self].Container,{
 Size=UDim2.new(1,0,0,0),
 AutomaticSize=Enum.AutomaticSize.Y,
@@ -1667,6 +1677,21 @@ end
 function aE:ToggleCollapsed()
 self:SetCollapsed(not collapsed)
 end
+if canCollapse and self.Accordion then
+local aAccordionGroup=self._accordionGroup
+table.insert(aAccordionGroup,aE)
+local aBaseSetCollapsed=aE.SetCollapsed
+aE.SetCollapsed=function(aSelf,aF)
+aBaseSetCollapsed(aSelf,aF)
+if not(aF and true or false)then
+for _,aSibling in aAccordionGroup do
+if aSibling~=aSelf and not aSibling.Collapsed then
+aSibling:SetCollapsed(true)
+end
+end
+end
+end
+end
 if canCollapse then
 u(aHeader.Activated,function()
 aE:ToggleCollapsed()
@@ -1738,6 +1763,12 @@ function aE:Destroy()
 if self.Destroyed then return end
 if aPopFrame then
 aPopFrame:Destroy()
+end
+if self.Parent and self.Parent._accordionGroup then
+local aIdx=table.find(self.Parent._accordionGroup,aE)
+if aIdx then
+table.remove(self.Parent._accordionGroup,aIdx)
+end
 end
 az:Destroy()
 T[self]=nil
@@ -1853,6 +1884,7 @@ selectIndex(aP)
 end)
 local aS=setmetatable({
 Parent=self,
+Accordion=aM.Accordion==true,
 Kind="TabboxPage"
 },ah)
 T[aS]=table.freeze{Container=aR}
@@ -3247,6 +3279,7 @@ local ay=setmetatable({
 Selected=self.SelectedTab==#S+1,
 Icon=s:GetIconByName(ax),
 Title=aw,
+Accordion=av.Accordion==true,
 Parent=self,
 IS_A_TAB=true
 },ah)
