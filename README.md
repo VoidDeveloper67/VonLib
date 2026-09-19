@@ -624,25 +624,44 @@ Window:Tag({ Title = "v2.0.0", Color = "Amber" })
 local MainTab = Window:MakeTab({ "Main", "home" })
 local ConfigTab = Window:MakeTab({ "Config", "settings" })
 
-local Combat = MainTab:AddGroupbox({ Name = "Combat" })
+-- Groupboxes are the main way to organize a tab: each is its own bordered
+-- card, and every Tab method (AddToggle, AddSlider, even AddGroupbox
+-- again for nesting) works exactly the same way when called on one.
+local Combat = MainTab:AddGroupbox({
+  Name        = "Combat",
+  Description = "Aim and damage related settings",
+})
 Combat:AddToggle({ Name = "Silent Aim", Default = false, Flag = "silent_aim", Callback = function(v) end })
 Combat:AddSlider({ Name = "FOV", Min = 10, Max = 200, Default = 90, Flag = "fov", Callback = function(v) end })
 
+-- A groupbox nested inside another one, starting collapsed
+local Prediction = Combat:AddGroupbox({ Name = "Prediction", Collapsed = true })
+Prediction:AddToggle({ Name = "Enabled", Default = true, Flag = "prediction_enabled", Callback = function(v) end })
+Prediction:AddSlider({ Name = "Strength", Min = 0, Max = 100, Default = 50, Flag = "prediction_strength", Callback = function(v) end })
+
 local Visuals = MainTab:AddGroupbox({ Name = "Visuals", Collapsed = true })
+Visuals:AddToggle({ Name = "ESP", Default = false, Flag = "esp_enabled", Callback = function(v) end })
 Visuals:AddColorPicker({ Name = "ESP Color", Default = Color3.fromRGB(255, 0, 0), Flag = "esp_color", Callback = function(c) end })
 
-ConfigTab:AddSection("Theme")
-ConfigTab:AddDropdown({
+-- Popped out so it stays visible on screen while you use other tabs
+local Watermark = MainTab:AddGroupbox({ Name = "Watermark", PopOut = true })
+Watermark:AddLabel("Example Hub | " .. game:GetService("Players").LocalPlayer.Name)
+
+local Theming = ConfigTab:AddGroupbox({ Name = "Theme" })
+Theming:AddDropdown({
   Name     = "Theme",
   Options  = Library:GetThemes(),
   Default  = Library:GetTheme().Name,
   Callback = function(v) Library:SetTheme(v) end,
 })
 
-ConfigTab:AddSection("Config Slots")
-ConfigTab:AddButton({ Name = "Save",  Callback = function() Window:SaveConfig("Default") end })
-ConfigTab:AddButton({ Name = "Load",  Callback = function() Window:LoadConfig("Default") end })
-ConfigTab:AddButton({ Name = "Reset", Callback = function() Window:ResetConfig() end })
+local Configs = ConfigTab:AddGroupbox({
+  Name        = "Config Slots",
+  Description = "Save and load full setting presets",
+})
+Configs:AddButton({ Name = "Save",  Callback = function() Window:SaveConfig("Default") end })
+Configs:AddButton({ Name = "Load",  Callback = function() Window:LoadConfig("Default") end })
+Configs:AddButton({ Name = "Reset", Callback = function() Window:ResetConfig() end })
 
 local HUD = Library:MakeStatsHUD({ Stats = { "Ping", "FPS", "Playtime" } })
 
