@@ -244,6 +244,16 @@ Combat:ToggleCollapsed()
 print(Combat.Collapsed)
 ```
 
+**Accordion mode.** Pass `Accordion = true` to `MakeTab` and every collapsible groupbox added directly to that tab coordinates: expanding one collapses whichever sibling was open, so only one is ever expanded at a time — the first one added starts expanded, later ones start collapsed, unless you pass `Collapsed` explicitly. It's off by default so ordinary groupboxes stay independent. The same flag works on `AddGroupbox` (coordinates its nested children) and `Tabbox:AddTab` (coordinates groupboxes within that page).
+
+```lua
+local Tab = Window:MakeTab({ "Main", Accordion = true })
+
+Tab:AddGroupbox({ Name = "Auto Farm" })   -- starts expanded
+Tab:AddGroupbox({ Name = "Filters" })     -- starts collapsed
+Tab:AddGroupbox({ Name = "Actions" })     -- starts collapsed
+```
+
 **Popping out.** Undock a groupbox into a draggable floating panel that stays on screen regardless of which tab is selected. The panel gets its own scrollbar and clamps to the screen height; click the small close button on it (or call `SetPoppedOut(false)`) to dock it back into place.
 
 ```lua
