@@ -81,10 +81,16 @@ local HUD = Library:MakeStatsHUD()
 
 -- Custom selection
 local HUD = Library:MakeStatsHUD({
+  Title    = "My Hub",                   -- shown on the drag handle (default "VonLib")
+  Width    = 140,                        -- HUD width in pixels (default 130)
   Stats    = { "Ping", "FPS", "Playtime", "Time", "Memory", "Players" },
   Position = UDim2.new(0, 8, 0.5, 0),  -- starting position (optional)
   Visible  = true,                       -- shown by default
 })
+
+-- Rename it any time
+HUD:SetTitle("Renamed Hub")
+print(HUD:GetTitle())
 
 -- Show / hide
 HUD:SetVisible(false)

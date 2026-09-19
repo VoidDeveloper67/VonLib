@@ -4130,7 +4130,10 @@ end
 -- ── Stats HUD ─────────────────────────────────────────────────────────────
 -- A draggable floating overlay that displays live game stats.
 -- Usage:
---   local HUD = Library:MakeStatsHUD({ Stats={"Ping","FPS","Playtime","Time","Memory"} })
+--   local HUD = Library:MakeStatsHUD({
+--     Title="My Hub", Width=140, Stats={"Ping","FPS","Playtime","Time","Memory"}
+--   })
+--   HUD:SetTitle("Renamed")
 --   HUD:SetVisible(false)
 --   HUD:AddStat("My Stat", function() return tostring(myValue) end)
 --   HUD:Destroy()
@@ -4180,10 +4183,12 @@ ab=ab or{}
 local statKeys=ab.Stats or ab[1]or{"Ping","FPS","Playtime","Time"}
 local startPos=ab.Position or UDim2.new(0,8,0.5,0)
 local initiallyVisible=ab.Visible~=false
+local hudTitle=ab.Title or ab.Name or"VonLib"
+local hudWidth=ab.Width or 130
 
 -- Outer container (transparent, just for layout + drag)
 local hudRoot=E("Frame","VonLibHUD",I,{
-Size=UDim2.new(0,110,0,0),
+Size=UDim2.new(0,hudWidth,0,0),
 Position=startPos,
 BackgroundTransparency=1,
 AutomaticSize=Enum.AutomaticSize.Y,
@@ -4193,32 +4198,38 @@ ZIndex=10
 -- Background card
 local hudBg=E("Frame","BG",hudRoot,{
 Size=UDim2.fromScale(1,1),
-BackgroundTransparency=0.18,
+BackgroundTransparency=0.12,
 ZIndex=10,
 ThemeTag={BackgroundColor3="Colors.Dialog.Background"},
-Elements={Corner=UDim.new(0,7)}
+Elements={Corner=UDim.new(0,8)}
 })
 E("UIStroke",hudBg,{
 Thickness=1,
-Transparency=0.4,
+Transparency=0.35,
 ThemeTag={Color="Colors.Border.Default"}
 })
 
 -- Drag handle strip
 local handle=E("TextButton","Handle",hudRoot,{
-Size=UDim2.new(1,0,0,14),
+Size=UDim2.new(1,0,0,20),
 BackgroundTransparency=0.1,
-Text="⠿ VonLib",
-TextSize=8,
+Text="⠿  "..hudTitle,
+TextSize=10,
 AutoButtonColor=false,
 ZIndex=11,
 ThemeTag={BackgroundColor3="Colors.Buttons.Default",TextColor3="Colors.Text.Dark",Font="Font.Bold"},
-Elements={Corner=UDim.new(0,7)}
+Elements={Corner=UDim.new(0,8)}
 })
+u(handle.MouseEnter,function()
+J(handle,"BackgroundTransparency",0,0.15):Play()
+end)
+u(handle.MouseLeave,function()
+J(handle,"BackgroundTransparency",0.1,0.15):Play()
+end)
 
 -- Stats row container
 local rowHolder=E("Frame","Rows",hudRoot,{
-Position=UDim2.fromOffset(0,16),
+Position=UDim2.fromOffset(0,21),
 Size=UDim2.new(1,0,0,0),
 AutomaticSize=Enum.AutomaticSize.Y,
 BackgroundTransparency=1,
@@ -4226,12 +4237,13 @@ ZIndex=10,
 Elements={
 ListLayout={
 SortOrder=Enum.SortOrder.LayoutOrder,
-Padding=UDim.new(0,1)
+Padding=UDim.new(0,2)
 },
 Padding={
-PaddingLeft=UDim.new(0,6),
-PaddingRight=UDim.new(0,6),
-PaddingBottom=UDim.new(0,6)
+PaddingLeft=UDim.new(0,8),
+PaddingRight=UDim.new(0,8),
+PaddingTop=UDim.new(0,5),
+PaddingBottom=UDim.new(0,7)
 }
 }
 })
@@ -4242,7 +4254,7 @@ local customProviders={}
 
 local function _makeRow(key,order)
 local row=E("Frame","Row_"..key,rowHolder,{
-Size=UDim2.new(1,0,0,13),
+Size=UDim2.new(1,0,0,15),
 BackgroundTransparency=1,
 LayoutOrder=order,
 ZIndex=10
@@ -4251,8 +4263,9 @@ local keyLbl=E("TextLabel","Key",row,{
 Size=UDim2.new(0.52,0,1,0),
 BackgroundTransparency=1,
 Text=key..":",
-TextSize=9,
+TextSize=10,
 TextXAlignment=Enum.TextXAlignment.Left,
+TextTruncate=Enum.TextTruncate.AtEnd,
 ZIndex=11,
 ThemeTag={TextColor3="Colors.Text.Darker",Font="Font.Medium"}
 })
@@ -4261,8 +4274,9 @@ Position=UDim2.fromScale(0.52,0),
 Size=UDim2.new(0.48,0,1,0),
 BackgroundTransparency=1,
 Text="--",
-TextSize=9,
+TextSize=10,
 TextXAlignment=Enum.TextXAlignment.Right,
+TextTruncate=Enum.TextTruncate.AtEnd,
 ZIndex=11,
 ThemeTag={TextColor3="Colors.Text.Default",Font="Font.Bold"}
 })
@@ -4323,6 +4337,12 @@ hudRoot.Visible=initiallyVisible
 local api={}
 function api:SetVisible(v) hudRoot.Visible=v end
 function api:IsVisible() return hudRoot.Visible end
+function api:SetTitle(title)
+assert(type(title)=="string","SetTitle: title must be string")
+hudTitle=title
+handle.Text="⠿  "..hudTitle
+end
+function api:GetTitle() return hudTitle end
 function api:AddStat(name,provider,order)
 assert(type(name)=="string","AddStat: name must be string")
 assert(type(provider)=="function","AddStat: provider must be function")
