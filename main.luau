@@ -278,7 +278,8 @@ TabSize=160
 Themes=r,
 Connections={},
 Options={},
-Tabs={}
+Tabs={},
+_FlagRegistry={}
 }
 s.Info=s.Information
 s.Save=s.Default
@@ -815,6 +816,10 @@ assert(type(au)=="function",`"TextBox.SetTextFilter[param 1]". 'function', or 'n
 end
 self.TEXTBOX_TEXT_FILTER=au
 return self
+end
+am.SetValue=am.SetText
+function am:GetValue()
+return self.TEXTBOX.Text
 end
 function am.new(au,av,aw,ax,ay,az)
 return setmetatable({
@@ -1835,6 +1840,10 @@ aQ=tick()
 aP:SetValue(not aP.Value)
 end
 end)
+if ay~=nil then
+aP.Default=av[2]or av.Default or false
+s._FlagRegistry[ay]=aP
+end
 return aP
 end
 function ah:AddButton(av)
@@ -1962,6 +1971,10 @@ end)
 u(aE.Activated,function()
 aI:CaptureFocus()
 end)
+if ay~=nil then
+aL.Default=av[2]or av.Default
+s._FlagRegistry[ay]=aL
+end
 return aL
 end
 function ah:AddKeybind(av)
@@ -1999,6 +2012,7 @@ function ah:AddKeybind(av)
     VISIBLE_ELEMENT=aC,
     TITLE_LABEL=aD,
     DESCRIPTION_LABEL=aE,
+    Title=aw,
     Parent=self,
     Kind="Keybind"
   },ai)
@@ -2025,6 +2039,10 @@ function ah:AddKeybind(av)
       end
     end)
   end)
+  if ay~=nil then
+    aG.Default=av[2]or av.Default or Enum.KeyCode.Unknown
+    s._FlagRegistry[ay]=aG
+  end
   return aG
 end
 function ah:AddSlider(av)
@@ -2175,6 +2193,10 @@ aX.Completed:Wait()
 J(aO,"Scale",1,0.2):Play()
 J(aN,"Rotation",0,0.1):Play()
 end)
+if ay~=nil then
+aP.Default=(av[5]or av.Default)or az
+s._FlagRegistry[ay]=aP
+end
 return aP
 end
 function ah:AddDiscordInvite(av)
@@ -2656,6 +2678,10 @@ function ah:AddColorPicker(av)
       aH=false
     end)
   end)
+  if ay~=nil then
+    aG.Default=(av[2]or av.Default)or Color3.fromRGB(255,0,0)
+    s._FlagRegistry[ay]=aG
+  end
   return aG
 end
 function ah:AddDropdown(av)
@@ -2926,11 +2952,18 @@ local entry={TitleLabel=result.TITLE_LABEL,VisibleElement=result.VISIBLE_ELEMENT
 table.insert(_vlSearchIndex[tab],entry)
 result._searchEntry=entry
 end
+local function vlApplyConfigBadge(result,...)
+local config=...
+if type(result)=="table"and type(config)=="table"and type(config.Badge)=="string"and config.Badge~=""and result.ApplyBadge then
+result:ApplyBadge(config.Badge)
+end
+end
 for methodName,fn in pairs(ah)do
 if type(fn)=="function"and methodName:sub(1,3)=="Add"then
 ah[methodName]=function(self,...)
 local result=fn(self,...)
 vlRegisterSearchable(self,result)
+vlApplyConfigBadge(result,...)
 return result
 end
 end
@@ -3338,18 +3371,12 @@ end
 return false
 end
 
--- Internal registry for flagged elements {flag -> element}
-local _flagRegistry={}
-local function _registerFlag(flag,elem)
-_flagRegistry[flag]=elem
-end
 local function _serializeValue(v)
 local t=typeof(v)
 if t=="boolean" then return v and"true"or"false"
 elseif t=="number" then return tostring(v)
 elseif t=="string" then return'"'..v:gsub('"','\\"')..'"'
 elseif t=="Color3" then return string.format("[%d,%d,%d]",v.R*255,v.G*255,v.B*255)
-elseif t=="EnumItem" then return'"'..tostring(v.Name)..'"'
 else return'"'..tostring(v)..'"'
 end
 end
@@ -3380,12 +3407,15 @@ name=name or"Default"
 local folder=self.ScriptFolder and(self.ScriptFolder.."/configs")or"vonlib/configs"
 local path=folder.."/"..name..".json"
 local data={}
-for flag,elem in _flagRegistry do
+for flag,elem in s._FlagRegistry do
 local val=nil
 if elem.Value~=nil then val=elem.Value
 elseif elem.GetValue then pcall(function()val=elem:GetValue()end)
 end
-if val~=nil then data[flag]=_serializeValue(val) end
+if val~=nil then
+if typeof(val)=="EnumItem" then val=val.Value end
+data[flag]=_serializeValue(val)
+end
 end
 local ok=pcall(z,path,_buildJson(data))
 return ok
@@ -3399,9 +3429,12 @@ local ok,raw=pcall(f,path)
 if not ok or type(raw)~="string" then return false end
 local data=_parseJson(raw)
 for flag,val in data do
-local elem=_flagRegistry[flag]
+local elem=s._FlagRegistry[flag]
 if elem then
 pcall(function()
+if elem.Kind=="Keybind"and type(val)=="number"then
+val=Enum.KeyCode:FromValue(val)
+end
 if elem.SetValue then elem:SetValue(val)
 elseif elem.Set then elem:Set(val)
 end
@@ -3433,7 +3466,7 @@ if c then pcall(c,path) end
 return true
 end
 function ag:ResetConfig(name)
-for flag,elem in _flagRegistry do
+for flag,elem in s._FlagRegistry do
 pcall(function()
 if elem.Default~=nil then
 if elem.SetValue then elem:SetValue(elem.Default)
