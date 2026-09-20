@@ -4171,19 +4171,20 @@ function s:CreateTheme(ab,ac)
   local bgSequence,bgColor
   if typeof(ac.Background)=="ColorSequence" then
     bgSequence=ac.Background
-    bgColor=base.Colors.Buttons.Default
+    bgColor=ac.Background.Keypoints[1].Value
   else
     bgColor=VL_ToColor3(ac.Background)
-    if bgColor then
-      bgSequence=ColorSequence.new{
-        ColorSequenceKeypoint.new(0.00,bgColor),
-        ColorSequenceKeypoint.new(0.50,VL_Shade(bgColor,0.15)),
-        ColorSequenceKeypoint.new(1.00,bgColor)
-      }
-    else
-      bgSequence=base.Colors.Background
-      bgColor=base.Colors.Buttons.Default
+    if not bgColor then
+      -- No background given: derive a dark tint from the accent instead of
+      -- silently falling back to the base theme's own (often black) background,
+      -- so a Primary-only custom theme still looks like a distinct theme.
+      bgColor=VL_Shade(primary,-0.85)
     end
+    bgSequence=ColorSequence.new{
+      ColorSequenceKeypoint.new(0.00,bgColor),
+      ColorSequenceKeypoint.new(0.50,VL_Shade(bgColor,0.15)),
+      ColorSequenceKeypoint.new(1.00,bgColor)
+    }
   end
   local light=VL_Luminance(bgColor)>0.6
   local text=VL_ToColor3(ac.Text) or VL_ContrastText(bgColor)
